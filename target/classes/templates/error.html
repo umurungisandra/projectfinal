@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main">
+<head>
+    <title>Welcome to traffic police</title>
+</head>
+<div class="col-lg-12" layout:fragment="header">
+    <h1 class="page-header">
+       Error
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i>
+        </li>
+        <li class="active">
+            <i class="fa fa-edit"></i>
+        </li>
+    </ol>
+</div>
+<div class="row" layout:fragment="middle">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> <strong th:text="${result}">MEssage</strong> <a
+                href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12" layout:fragment="content">
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Error</h3>
+                </div>
+                <!-- /.row -->
+
+                <h1>Error Page</h1>
+                <div id="auth" name="urls" sec:authorize="isAuthenticated()" class="alert alert-danger alert-dismissible" role="alert">
+                    <h1> Error
+                        <strong>Error!</strong> Contact administrator
+
+                    </h1>
+                </div>
+
+                <!--  As we are using Thymeleaf, you might consider using
+                      ${#httpServletRequest.requestURL}. But that returns the path
+                      to this error page.  Hence we explicitly add the url to the
+                      Model in some of the example code. -->
+                <p th:if="${url}">
+                    <b>Page:</b> <span th:text="${url}">Page URL</span>
+                </p>
+
+                <p th:if="${timestamp}" id='created'>
+                    <b>Occurred:</b> <span th:text="${timestamp}">Timestamp</span>
+                </p>
+
+                <p th:if="${status}">
+                    <b>Response Status:</b> <span th:text="${status}">status-code</span> <span
+                        th:if="${error}" th:text="'('+${error}+')'">error ...</span>
+                </p>
+
+                <!--/* ${ex} is set by ourSimpleMappingExceptionResolver,
+                       ${exception} or ${message} are set internally by Spring Boot. */-->
+                <div
+                        th:if="${ex} or ${exception} or (${message} and ${message.length() != 0})">
+                    <b>Cause:</b> <span th:if="${ex}" th:text="${ex}">exception ...</span>
+                    <span th:if="${exception}" th:text="${exception}">exception ...</span>
+    <span th:if="${message} and ${message.length() != 0}"
+          th:text="${message}">message ...</span>
+                    <blockquote>
+                        <i>Note: </i>
+                    </blockquote>
+                </div>
+
+                <p
+                        th:unless="${ex} or ${exception} or (${message} and ${message.length() != 0})">
+                    Cause unknown (no exception details available)</p>
+
+                <p>
+                    You are seeing this error page due to Spring Boot (which returns a
+                    view called "error" in response to uncaught exceptions. Since we are
+                    using Thymeleaf this corresponds to the template
+                    <code>error.html</code>
+                    )
+                </p>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</html>

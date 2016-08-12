@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main">
+<head>
+    <title>Exihibit And Fines</title>
+</head>
+<div class="col-lg-12" layout:fragment="header">
+    <h1 class="page-header">
+        Punishement
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a th:href="@{/punishement/list}">List Punishement</a>
+        </li>
+        <li class="active">
+            <i class="fa fa-edit"></i>
+        </li>
+    </ol>
+</div>
+<div class="row" layout:fragment="middle">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> <strong></strong>  <a
+                href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12" layout:fragment="content">
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Punishement</h3>
+                </div>
+<!-- /.row -->
+
+        <form th:object="${punishement}" th:action="@{/punishement/save}" action="#" method="post" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-xs-2 control-label" for="operation">Mark Deduct</label>
+                <div class="col-xs-6">
+                    <select id="operation" th:field="*{operation}" class="form-control">
+                        <option value="" text="----Choose Operation----"></option>
+                        <option th:each="t : ${operation}" th:value="${t.id}"  th:text="${t.setMark}"></option>
+                        <div th:if="${#fields.hasErrors('operation')}" th:errors="*{operation}">Operation Error</div>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-2 control-label" for="operation">Penalties</label>
+                <div class="col-xs-6">
+                    <select id="operation" th:field="*{operation}" class="form-control">
+                        <option value="" text="----Choose Operation----"></option>
+                        <option th:each="t : ${operation}" th:value="${t.id}"  th:text="${t.setPenalties}"></option>
+                        <div th:if="${#fields.hasErrors('operation')}" th:errors="*{operation}">Operation Error</div>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-2 control-label" for="description">Description</label>
+                <div class="col-xs-6">
+                    <input type="text" id="description" class="form-control" th:field="*{description}"/>
+                    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"> Description Error</div>
+                </div>
+                </div>
+
+            <div class="form-group">
+
+                <div class="col-xs-6">
+                    <input type="submit" class="btn btn-danger pull-right" value="Save"/>
+                </div>
+            </div>
+
+
+
+
+        </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</html>

@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main">
+<head>
+    <title>Exihibit And Fines</title>
+</head>
+<div class="col-lg-12" layout:fragment="header">
+    <h1 class="page-header">
+        Role
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a th:href="@{/roles/list}">List Role</a >
+        </li>
+        <li class="active">
+            <i class="fa fa-edit"></i>
+        </li>
+    </ol>
+</div>
+<div class="row" layout:fragment="middle">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> <strong></strong>  <a
+                href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12" layout:fragment="content">
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Role</h3>
+                </div>
+<!-- /.row -->
+
+        <form th:object="${roles}" th:action="@{/roles/save}" action="#" method="post" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-xs-2 control-label" for="roleName">RoleName</label>
+                <div class="col-xs-6">
+                    <input type="text" id="roleName" class="form-control" th:field="*{roleName}"/>
+                    <div th:if="${#fields.hasErrors('roleName')}" th:errors="*{roleName}">roleName Error</div>
+                </div>
+            </div>
+            <div style="clear:both; display:block;height:10px;"></div>
+            <div class="form-group">
+                <label class="col-xs-2 control-label" for="saveDate">saveDate</label>
+                <div class="col-xs-6">
+                    <input type="date" id="saveDate" class="form-control" th:field="*{savedDate}"/>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-xs-6">
+                    <input type="submit" class="btn btn-danger pull-right" value="Save"/>
+                </div>
+            </div>
+
+
+
+        </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main">
+<head>
+    <title>Exihibit And Fines</title>
+</head>
+<div class="col-lg-12" layout:fragment="header">
+    <h1 class="page-header">
+        Offences
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a th:href="@{/offences/list}">List Offences</a>
+        </li>
+        <li class="active">
+            <i class="fa fa-edit"></i>
+        </li>
+    </ol>
+</div>
+<div class="row" layout:fragment="middle">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> <strong></strong>  <a
+                href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12" layout:fragment="content">
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Offence</h3>
+                </div>
+                <!-- /.row -->
+
+                <form th:object="${offences}" th:action="@{/offences/save}" action="#" method="post" class="form-horizontal" role="form">
+                    <div class="form-group" style="display: none">
+                        <label class="col-xs-2 control-label" for="punishement">Operation</label>
+                        <div class="col-xs-6">
+                            <input type="text" th:field="*{punishments}" class="form-control" placeholder="punishement" id="punishement"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">description</label>
+                        <div class="col-xs-6">
+                            <span th:text="${punishment.description}">description</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label" for="description">nameOffence</label>
+                        <div class="col-xs-6">
+                            <input type="text" id="description" class="form-control" th:field="*{nameOffence}"/>
+                            <div th:if="${#fields.hasErrors('nameOffence')}" th:errors="*{nameOffence}"> Description Error</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-xs-6">
+                            <input type="submit" class="btn btn-danger pull-right" value="Save"/>
+                        </div>
+                    </div>
+
+
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

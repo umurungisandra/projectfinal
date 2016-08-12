@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Traffic</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+
+    <!-- Custom CSS -->
+    <!--<link href="../static/css/sb-admin.css" rel="stylesheet" th:href="@{/css/sb-admin.css}"/>-->
+
+    <!-- Morris Charts CSS -->
+    <link href="../static/css/plugins/morris.css" rel="stylesheet" th:href="@{/css/plugins/morris.css}"/>
+
+    <!-- Custom Fonts -->
+    <link href="../static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"
+          th:href="@{/font-awesome/css/font-awesome.min.css}"/>
+
+    <!-- Additional CSS and JS-->
+    <!--CSS-->
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="all"/>
+
+    <link th:href="@{/css/bootstrap-submenu.min.css}" rel="stylesheet" media="all"/>
+
+
+    <link th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" media="all"/>
+    <link th:href="@{/css/jquery-ui.css}" rel="stylesheet" media="all"/>
+
+    <link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" media="all"/>
+    <link th:href="@{/css/buttons.dataTables.min.css}" rel="stylesheet" media="all"/>
+    <link th:href="@{/css/jquery.timepicker.css}" rel="stylesheet" media="all"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}"/>
+    <!-- JS -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+
+    <script type="text/javascript" th:src="@{/js/jquery.autocomplete.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+
+
+    <script type="text/javascript" th:src="@{/js/dataTables.bootstrap.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+
+    <script type="text/javascript" th:src="@{/js/bootstrap-submenu.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-checkbox.js}"></script>
+
+
+    <script type="text/javascript" th:src="@{/js/jquery-ui.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.timepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
+    <!--DataTables export-->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/t/dt/jq-2.2.0,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2/datatables.min.css"/>
+
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/t/dt/jq-2.2.0,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2/datatables.min.js"></script>
+
+
+    <!--End export-->
+
+    <!-- End Additional CSS and JS-->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+
+    <![endif]-->
+    <style>
+        /* LESS */
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu > a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover > a:after {
+            border-left-color: #fff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="">Exhibits And Fines</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown">
+
+                <ul class="dropdown-menu message-dropdown">
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt=""/>
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="message-preview">
+                        <a href="#">
+                            <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt=""/>
+                                    </span>
+                                <div class="media-body">
+                                    <h5 class="media-heading"><strong>John Smith</strong>
+                                    </h5>
+                                    <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="message-footer">
+                        <a href="#">Read All New Messages</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dropdown" sec:authorize="isAuthenticated()">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span
+                        th:text="${#authentication.name}" style="text-transform: uppercase"></span> <b
+                        class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+
+
+                    <li class="divider"></li>
+                    <li>
+                        <a th:href="@{/logout}"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
+            </li>
+            <li sec:authorize="isAnonymous()">
+                <a th:href="@{/login}"><i class="fa fa-fw fa-power-off"></i> Login</a>
+            </li>
+        </ul>
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-header" sec:authorize="isAuthenticated()">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a id="dLabel" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                        Administration <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">User Management</a>
+
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/users}">Add User </a></li>
+
+                            </ul>
+
+                        </li>
+                        <li class="dropdown-submenu">
+
+                            <a tabindex="-1" href="#">Role Management</a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/roles}">Add Role </a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a id="dpunish" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                        Punishment <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Punishment Management</a>
+
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/punishement}">Add Punishment </a></li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a id="doffence" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                        Offences <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Offences Management</a>
+
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/offences}">Add Offences </a></li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li>
+                    <a id="contravention" role="button" data-toggle="dropdown" class="" data-target="#"
+                       href="/page.html">
+                        Contravention <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Contravention Management</a>
+
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/contravention}">Add Contravention </a></li>
+
+                                <li><a tabindex="-1" th:href="@{/getbalance}">Check Balance </a></li>
+                                <li><a tabindex="-1" th:href="@{/getpoint}">Check Point </a></li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a id="dop" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                        Operation <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Operation Management</a>
+
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/operation}">Add Operation </a></li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a id="dcp" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                        Complaints <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Complaints Management</a>
+
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/complaints}">Add Complaint </a></li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a id="dreport" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                        Report <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Simple Report</a>
+
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/users/list}">List User </a></li>
+                                <li><a tabindex="-1" th:href="@{/roles/list}">List Role </a></li>
+                                <li><a tabindex="-1" th:href="@{/operation/list}">List Operation</a></li>
+                                <li><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
+                                <li><a tabindex="-1" th:href="@{/offences/list}">List Offences</a></li>
+
+                            </ul>
+
+                        </li>
+                        <li class="dropdown-submenu">
+
+                            <a tabindex="-1" href="#">Details Report</a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/contravention/list}">List Contravention</a></li>
+                                <li><a tabindex="-1" th:href="@{/complaints/list}">List Complaint</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+
+                            <a tabindex="-1" href="#">Summary Report</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#" id="printPdf"><i class="fa fa-fw fa-print"></i>
+                                        Print List of Driver And person responsible
+                                    </a>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </li>
+
+
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12" layout:fragment="header">
+                    <h1 class="page-header">
+                        <p> Exhibit And Fines</p>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li class="active">
+                            <i class="fa fa-dashboard"></i> Home
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row" layout:fragment="middle">
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <i class="fa fa-info-circle"></i> <strong>Like SB Exhibits And Fines?</strong> Try out <a
+                            href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin
+                        2</a> for additional features!
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+
+            <!-- /.row -->
+
+
+            <!-- /.row -->
+
+            <div class="row" layout:fragment="content">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Donut Chart</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-donut-chart"></div>
+                            <div class="text-right">
+                                <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                <input type="text" class="input-group"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<!--<script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>-->
+
+<!--&lt;!&ndash; Bootstrap Core JavaScript &ndash;&gt;-->
+<!--<script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>-->
+
+<!--&lt;!&ndash; Morris Charts JavaScript &ndash;&gt;-->
+<!--<script src="js/plugins/morris/raphael.min.js" th:src="@{/s/plugins/morris/raphael.min.js}"></script>-->
+<!--<script src="js/plugins/morris/morris.min.js" th:src="@{/js/plugins/morris/morris.min.js}"></script>-->
+<!--<script src="js/plugins/morris/morris-data.js" th:src="@{/js/plugins/morris/morris-data.js}"></script>-->
+<script th:src="@{/js/addressHie.js}"></script>
+
+<script>
+    // <![CDATA[
+    var example = $('#example').DataTable({
+        dom: "Bfrtip",
+        buttons: [
+            "copyHtml5",
+            "excelHtml5",
+            "csvHtml5",
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            {
+                extend: 'colvis'
+            }
+        ],
+        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(), data;
+
+// Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                                i : 0;
+            };
+
+// Total over all pages
+            total = api
+                    .column(4)
+                    .data()
+                    .reduce(function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+// Total over this page
+            pageTotal = api
+                    .column(4, {page: 'current'})
+                    .data()
+                    .reduce(function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+
+// Update footer
+            $(api.column(4).footer()).html(
+                    'Frw ' + pageTotal + ' ( Frw ' + total + ' total)'
+            );
+        }
+
+    });
+
+
+    example.columns().eq(0).each(function (colIdx) {
+        $('input', example.column(colIdx).header()).on('keyup change', function () {
+            example
+                    .column(colIdx)
+                    .search(this.value)
+                    .draw();
+        });
+
+        $('input', example.column(colIdx).header()).on('click', function (e) {
+            e.stopPropagation();
+        });
+    });
+    //]]>
+</script>
+<script>
+    // <![CDATA[
+    var today = new Date();
+    $(document).ready(function () {
+//        ----------------------------------- Check driverPoint  ------------------------
+        $('#checkPoint').click(function(){
+            var dl = $('#drivingLicense').val();
+            var hostLoc=window.location.host;
+            var protoc=window.location.protocol;
+            var url= protoc+"//"+hostLoc+"/getpoint/"+dl;
+            window.open(url,"_self");
+    })
+        ;
+        $('#checkBalance').click(function(){
+            var dl = $('#drivingLicense').val();
+            var hostLoc=window.location.host;
+            var protoc=window.location.protocol;
+            var url= protoc+"//"+hostLoc+"/checkbalance/"+dl;
+            window.open(url,"_self");
+        })
+        ;
+
+        // --------------------------------------------------datepicker-------------------------------------
+        $('.date-picker').datepicker({
+            dateFormat: "yy-mm-dd",
+            maxDate: "+0",
+            timeFormat: 'hh:mm:ss',
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true
+        });
+        $('.date-picker1').datepicker({
+            dateFormat: "yy-mm-dd",
+            timeFormat: 'hh:mm:ss',
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true
+        });
+        $('.time-picker').timepicker({
+            timeFormat: 'H : i ',
+            'scrollDefault': 'now',
+            interval: 1,
+            step: 1,
+        });
+    });
+    // ]]>
+    //    ------------------------------ PdfMake ------------------------
+
+    var pathArray = window.location.pathname.split('/');
+    var hostLoc = window.location.host;
+    var protoc = window.location.protocol;
+    var url = protoc + "//" + hostLoc + "/api/getCount";
+    //    alert(url);
+    var ContraventionComplaints;
+    $.ajax({
+        type: "GET",
+        url: url,
+        dataType: "text",
+        async: false,
+        success: function (data) {
+            ContraventionComplaints = data; //or something similar
+        }
+    });
+    var contcomp = JSON.parse(ContraventionComplaints);
+    //    var len = custLin.length;
+    //    var custom = bal.plate;
+    //    var amount = bal.amount;
+    //    var totalAmount = amount + 10000;
+    //    var dt = bal.defaultersList;
+    var value = [];
+    obj = [];
+    var col = ['Name', 'Driving License', 'Offence Name', 'Responsible'];
+
+
+    var externalDataRetrievedFromServer = contcomp;
+    function buildTableBody(data, columns) {
+        var body = [];
+
+        body.push(columns);
+
+        data.forEach(function (row) {
+            var dataRow = [];
+
+
+
+            var contra=row.contravention;
+            var comp=row.complaints;
+
+            dataRow.push(contra.name.toString());
+            dataRow.push(contra.drivingLicense);
+            dataRow.push(contra.offenceName);
+            dataRow.push(comp.responsible);
+            dataRow.push(row.count+'');
+
+
+
+
+
+            body.push(dataRow);
+        });
+
+        return body;
+    }
+    function table(data, columns) {
+        return {
+            width: 'auto',
+            table: {
+                headerRows: 1,
+                widths: [100, 'auto', 'auto', 'auto', 'auto', 100],
+                body: buildTableBody(data, columns)
+            }
+        };
+    }
+    document.getElementById("printPdf").onclick = function () {
+        pdfMake.createPdf(docDefinition).open();
+
+
+    };
+    //    var column = [];
+    //    column.push({text: 'Ticket Number', style: 'tableHeader'});
+    //    column.push({text: 'Plaque', style: 'tableHeader'});
+    //    column.push({text: 'Location', style: 'tableHeader'});
+    //    column.push({text: 'Date', style: 'tableHeader'});
+    //    column.push({text: 'time', style: 'tableHeader'});
+    //    column.push({text: 'Amount', style: 'tableHeader'});
+
+
+    var docDefinition = {
+                footer: {
+                    columns: [
+                        {width: '*', text: ''}, {
+                            width: 'auto',
+                            text: 'FOR MORE INFORMATION:Visit or call:0788 303 924\n' + 'PO BOX: 6304 Kigali-Rwanda',
+                            style: 'subheader',
+                            alignment: 'center'
+                        },
+
+
+                        {width: '*', text: ''},
+
+                    ],
+
+                },
+                content: [
+                    {
+                        columns: [
+                            {width: '*', text: ''},
+                            {
+                                width: 'auto',
+                                text: 'EXHIBIT AND FINES \n P.O. BOX: 6304 KIGALI\n www.police.gov.rw',
+                                style: 'subheader',
+                                alignment: 'center'
+                            },
+                            {width: '*', text: ''},
+
+
+                        ],
+                    },
+                    {
+                        columns: [
+                            {width: '*', text: ''},
+                            {
+                                width: 'auto',
+                                text: 'List of Driver and Person taking decision in copmlaint',
+                                style: 'header',
+                                decoration: 'underline'
+                            },
+                            {width: '*', text: ''},
+
+
+                        ],
+                    },
+
+                    {
+                        columns: [
+
+
+                            {width: '*', text: ''},
+                            table(externalDataRetrievedFromServer, col),
+                            {width: '*', text: ''},
+
+                        ]
+                    },
+                    {text: '\n', style: 'header'},
+
+
+
+//
+                    {text: '\n', style: 'header'},
+
+                ],
+                styles: {
+                    header: {
+                        fontSize: 18,
+                        bold: true,
+                        margin: [0, 0, 0, 10],
+                        color: 'blue'
+                    }
+                    ,
+                    subheader: {
+                        fontSize: 12,
+                        bold: true,
+                        margin: [0, 10, 0, 5],
+                        color: 'blue'
+                    }
+                    ,
+                    subheader1: {
+                        fontSize: 12,
+                        bold: true,
+                        margin: [0, 10, 0, 5],
+                        color: 'blue',
+                        align: 'right'
+                    }
+                    ,
+                    tableExample: {
+                        margin: [0, 5, 0, 15]
+                    }
+                    ,
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 13,
+                        color: 'black'
+                    }
+                    ,
+                    tableContent: {
+                        bold: false,
+                        fontSize: 13,
+                        color: 'black',
+                        italic: true
+                    }
+                }
+                ,
+                defaultStyle: {
+                    // alignment: 'justify'
+                },
+                pageSize: 'LETTER',
+                pageMargins: [15, 15, 15, 150]
+
+
+            }
+            ;
+
+    //    ---------------------------- End PDFMake ----------------
+</script>
+</body>
+
+</html>

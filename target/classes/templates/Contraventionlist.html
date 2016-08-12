@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main">
+<head>
+    <title>Exihibit And Fines</title>
+</head>
+<div class="col-lg-12" layout:fragment="header">
+    <h1 class="page-header">
+        Contravention
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a th:href="@{/contravention}">Add  New contravention</a>
+        </li>
+
+    </ol>
+</div>
+<div class="row" layout:fragment="middle">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> <strong></strong>  <a
+                href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12" layout:fragment="content">
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Contravention</h3>
+                </div>
+                <table class="table table-striped table-hover table-condensed dataTab" id="example">
+                    <thead>
+                    <th>name</th>
+                    <th>drivingLicense</th>
+                    <th>offenceName</th>
+                    <th>policeOfficer</th>
+                    <th>plateNumber</th>
+                    <th>descriptionOffence</th>
+                    <th>payment</th>
+                    <!--<th>Amount due</th>-->
+                    <!--<th>Point deducted</th>-->
+                    <th>Saved Date</th>
+
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="cmt : ${contravention}">
+                        <td th:text="${cmt.nameDriver}">name</td>
+                        <td th:text="${cmt.drivingLicense}">drivingLicense </td>
+                        <td>
+                            <ul>
+                            <li th:each="item : ${cmt.offenceName}" th:text="${item.nameOffence}+' meaning '+${item.punishments.description}">Item description here...</li>
+                        </ul>
+                        </td>
+                        <td th:text="${cmt.policeOfficer}">policeOfficer</td>
+                        <td th:text="${cmt.plateNumber}">plateNumber</td>
+                        <td th:text="${cmt.descriptionOffence}">descriptionOffence</td>
+                        <td th:text="${cmt.payment}">payment</td>
+                        <!--<td th:text="${cmt.offenceName.punishments.operation.setPenalties}">Amount</td>-->
+                        <!--<td th:text="${cmt.offenceName.punishments.operation.setMark}">Point</td>-->
+                        <td th:text="${cmt.savedDate}">Saved Date</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

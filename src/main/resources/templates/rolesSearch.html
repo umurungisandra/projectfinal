@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="main">
+<head>
+    <title>Exihibit And Fines</title>
+</head>
+<div class="col-lg-12" layout:fragment="header">
+    <h1 class="page-header">
+        User
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <i class="fa fa-dashboard"></i> <a th:href="@{/roles}">Add New Role</a>
+        </li>
+        <li class="active">
+            <i class="fa fa-edit"></i>
+        </li>
+    </ol>
+</div>
+<div class="row" layout:fragment="middle">
+    <div class="col-lg-12">
+        <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="fa fa-info-circle"></i> <strong></strong>  <a
+                href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-12" layout:fragment="content">
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Role</h3>
+                </div>
+                <!-- /.row -->
+
+                <table class="table">
+
+                    <div id="searchwrap">
+                        <li id="search">
+
+                            <form class="navbar-form" role="search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term"/>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                    </div>
+
+                    <thead>
+                    <th>roleName</th>
+                    <th>SavedBy</th>
+                    <th>Saved Date</th>
+                    <th>Enabled</th>
+                    <th>Edit</th>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>roleName</th>
+                        <th>SavedBy</th>
+                        <th>Saved Date</th>
+                        <th>Enabled</th>
+
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    <tr th:each="rl : ${roles}">
+                        <td th:text="${rl.roleName}">userRole</td>
+                        <td th:text="${rl.savedBy}">SavedBy</td>
+                        <td th:text="${rl.savedDate}">Saved Date</td>
+                        <td th:text="${rl.voided}? #{true} : #{false}">yes</td>
+                        <td><a th:href="@{/roles/edit/{id}(id=${rl.id})}">Edit</a> </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</html>
