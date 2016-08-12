@@ -8,9 +8,11 @@ import com.example.demo.service.ContraventionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.Reference;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
 /**
  * Created by sandra on 8/8/2016.
  */
+@RestController
 public class ReportController {
     @Autowired
     ContraventionService contraventionService;
@@ -26,7 +29,7 @@ public class ReportController {
     ComplaintsService complaintsService;
     @RequestMapping(value = "/api/getCount", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity getContraventionComplaints(){
+    public ResponseEntity<List<ContraventionComplaints>> getContraventionComplaints(){
 
         List<ContraventionComplaints> contraventionComplaints =new ArrayList<>();
         int count=0;

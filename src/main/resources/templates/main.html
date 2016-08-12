@@ -603,7 +603,7 @@
     var hostLoc = window.location.host;
     var protoc = window.location.protocol;
     var url = protoc + "//" + hostLoc + "/api/getCount";
-    //    alert(url);
+//        alert(url);
     var ContraventionComplaints;
     $.ajax({
         type: "GET",
@@ -611,6 +611,7 @@
         dataType: "text",
         async: false,
         success: function (data) {
+           alert(data);
             ContraventionComplaints = data; //or something similar
         }
     });
