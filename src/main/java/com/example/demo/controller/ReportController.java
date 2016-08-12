@@ -28,15 +28,15 @@ public class ReportController {
     @ResponseBody
     public ResponseEntity getContraventionComplaints(){
 
-        List<ContraventionComplaints> ContraventionComplaints =new ArrayList<>();
+        List<ContraventionComplaints> contraventionComplaints =new ArrayList<>();
         int count=0;
         for(Complaints complaints:complaintsService.getAll()) {
             for (Contravention contravention : contraventionService.getAll()) {
                 count = contraventionService.countByContraventionAndComplaints(contravention, complaints);
-                ContraventionComplaints().add(new ContraventionComplaints(contravention, complaints, count));
+                contraventionComplaints.add(new ContraventionComplaints(contravention, complaints, count));
             }
         }
-        return new ResponseEntity<>(ContraventionComplaints(), HttpStatus.OK);
+        return new ResponseEntity<>(contraventionComplaints, HttpStatus.OK);
     }
 
 
