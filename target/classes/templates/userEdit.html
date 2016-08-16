@@ -155,7 +155,7 @@
                             <div class="form-group">
                                 <label class="col-xs-2 control-label" for="username">UserName</label>
                                 <div class="col-xs-6">
-                                    <input type="text" id="username" class="form-control" th:field="*{username}" readonly="readonly"/>
+                                    <input type="text" id="username" class="form-control" th:field="*{username}" />
                                     <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</div>
                                 </div>
                             </div>

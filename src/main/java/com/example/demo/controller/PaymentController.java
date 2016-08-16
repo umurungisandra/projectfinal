@@ -89,7 +89,8 @@ public class PaymentController {
             LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate cDate = contDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             long diff = Duration.between(date.atTime(0, 0), cDate.atTime(0, 0)).toDays();
-            if (diff > 0) {
+            System.out.println(diff);
+            if (diff >3) {
                 amande = 0.2 * diff;
             }
             for (Offences offences : contravention.getOffenceName()) {

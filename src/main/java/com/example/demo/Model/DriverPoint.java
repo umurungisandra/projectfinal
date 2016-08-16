@@ -11,6 +11,7 @@ public class DriverPoint {
     private Integer id;
     private Driver driver;
     private int driverPoint;
+    private Integer telephone;
     private boolean voided;
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -46,5 +47,13 @@ public class DriverPoint {
 
     public void setVoided(boolean voided) {
         this.voided = voided;
+    }
+ @Column
+    public Integer getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Integer telephone) {
+        this.telephone = telephone;
     }
 }
