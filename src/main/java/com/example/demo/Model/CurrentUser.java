@@ -71,7 +71,7 @@ public class CurrentUser implements UserDetails {
             Roles role) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        authorities.add(new SimpleGrantedAuthority(role.name()));
 
         return authorities;
     }

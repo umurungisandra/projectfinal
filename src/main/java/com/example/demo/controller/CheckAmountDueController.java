@@ -6,6 +6,7 @@ import com.example.demo.Model.PaymentDriver;
 import com.example.demo.Model.Punishment;
 import com.example.demo.service.ContraventionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ public class CheckAmountDueController {
     ContraventionService contraventionService;
 
 
-
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping( value = "/checkbalance/{id}", method = RequestMethod.GET)
     public String getCheckBalance(@PathVariable("id") String drivingLicense, Model model) {
         int amount = getBalance(drivingLicense);
@@ -63,6 +64,7 @@ public class CheckAmountDueController {
 
             }
             if (diff >3) {
+                diff-=3;
                 amande = 0.2 * diff*contrAmount;
             }
             amount += amande;

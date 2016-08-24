@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.Model.Operation;
+import com.example.demo.Model.PunishmentPolicy;
 import com.example.demo.dao.OperationDao;
 import com.example.demo.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +16,25 @@ public class OperationServiceImp implements OperationService {
     @Autowired
     OperationDao operationDao;
     @Override
-    public void saveOrUpdate(Operation operation) {
+    public void saveOrUpdate(PunishmentPolicy operation) {
         operationDao.save(operation);
 
     }
 
     @Override
-    public void delete(Operation operation) {
-        Operation us= operationDao.findOne(operation.getId()) ;
+    public void delete(PunishmentPolicy operation) {
+        PunishmentPolicy us= operationDao.findOne(operation.getId()) ;
         us.setVoided(false);
         operationDao.save(us);
     }
 
     @Override
-    public List<Operation> getAll() {
+    public List<PunishmentPolicy> getAll() {
         return operationDao.findAll();
     }
 
     @Override
-    public Operation getById(Integer idOperation) {
+    public PunishmentPolicy getById(Integer idOperation) {
         return operationDao.findOne(idOperation);
     }
 }

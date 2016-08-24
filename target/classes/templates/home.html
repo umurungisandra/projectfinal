@@ -1,49 +1,113 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="main">
+<html lang="en"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+>
+
 <head>
-    <title>Welcome to Exihibit And Fines </title>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Landing Page - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link th:href="@{/css/landing-page.css}" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
-<div class="col-lg-12" layout:fragment="header">
-    <h1 class="page-header">
 
-    </h1>
+<body>
 
-</div>
-<div class="row" layout:fragment="middle">
-    <div class="col-lg-12">
-        <div class="alert alert-info alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="false">&times;</button>
-            <i class="fa fa-info-circle"></i> <strong>Welcome to Exhibits and FInes</strong>  <a
-                href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+
+            <img  alt="" src="https://pbs.twimg.com/profile_images/1689403802/Logo_police_social_media_bigger.png"/>
+            <h7> Rwanda National Police</h7>
         </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+        <!-- /.navbar-collapse -->
     </div>
-</div>
+    <!-- /.container -->
+</nav>
 
-<!-- /.row -->
-<div class="row">
-    <div class="col-lg-12" layout:fragment="content">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
 
-                        <img  alt="" src="https://pbs.twimg.com/profile_images/1689403802/Logo_police_social_media_bigger.png"/>
-                    <h3 class="panel-title"><i class=""></i> rwanda national police</h3>
-                    <h1 class="page-header">
+<!-- Header -->
+<a name="about"></a>
+<div class="intro-header">
+    <div class="container">
 
-                        Road Traffic Offence Committed Management Information System
-                    </h1>
-                </div>
-                <div class="panel-body">
-                    <div id="morris-donut-chart"></div>
-                    <div class="text-right">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
 
-                    </div>
+                    <h1>Traffic Police</h1>
+                    <h3> Exhibit And Fines</h3>
+
+                    <hr class="intro-divider"/>
+                    <ul class="list-inline intro-social-buttons">
+
+                        <li sec:authorize="isAnonymous()">
+                            <a th:href="@{/login}"><i class="fa fa-fw fa-power-off"></i> Login</a>
+                        </li>
+
+                    </ul>
                 </div>
             </div>
+        </div>
 
+    </div>
+    <!-- /.container -->
+
+</div>
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <p class="copyright text-muted small">Copyright &copy; Sandra Nicole 2016. All Rights Reserved</p>
+
+            </div>
         </div>
     </div>
-</div>
+</footer>
+
+<!-- jQuery -->
+<script th:src="@{/js/jquery.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+
 </html>

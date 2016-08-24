@@ -3,12 +3,14 @@ package com.example.demo.controller;
 import com.example.demo.Model.*;
 import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class ContraventionController {
     @Autowired
     DriverPointService driverPointService;
 
-
+    @PreAuthorize("hasAnyAuthority('POLICE_OFFICER')")
     @RequestMapping(value = "/contravention", method = RequestMethod.GET)
     public String getContraventionPage(Model model) {
         model.addAttribute("contravention", new Contravention());
@@ -42,12 +44,13 @@ public class ContraventionController {
     }
 
     @RequestMapping(value = "/contravention/save", method = RequestMethod.POST)
-    public String saveContravention(@Valid @ModelAttribute("contravention") Contravention contravention, BindingResult bindingResult, Authentication authentication, Model model) {
+    public String saveContravention(@Valid @ModelAttribute("contravention") Contravention contravention, BindingResult bindingResult, Authentication authentication, Model model,RedirectAttributes redirectAttrs) {
 
         if (contravention.getDrivingLicense() != null) {
             if (!checkDriverExist(contravention.getDrivingLicense())) {
                 System.out.println(bindingResult.getFieldError().getField());
                 model.addAttribute("contravention", contravention);
+                redirectAttrs.addFlashAttribute("messages", "success");
                 return "/contravention";
             }
 
@@ -61,7 +64,7 @@ public class ContraventionController {
             contraventionService.saveOrUpdate(contravention);
             model.addAttribute("contravention", new Contravention());
             model.addAttribute("offences", offencesService.getAll());
-
+            model.addAttribute("messages", "unsuccess");
             return "redirect:/contravention";
 
         } else if (contravention.getPlateNumber() != null) {
@@ -87,7 +90,7 @@ public class ContraventionController {
             return "/contravention";
         }
     }
-
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/contravention/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("contravention", contraventionService.getAll());
@@ -95,7 +98,12 @@ public class ContraventionController {
         return "contraventionlist";
     }
 
+    @RequestMapping(value = "/contravention/list/payment", method = RequestMethod.GET)
+    public String getListPagee(Model model) {
+        model.addAttribute("contravention", contraventionService.getAll());
 
+        return "contraventionlistpayment";
+    }
 
 
     private Driver getDriverByDrivingLicense(String drivingLicense) {
@@ -131,6 +139,7 @@ public class ContraventionController {
             return false;
         }
     }
+    @PreAuthorize("hasAnyAuthority('POLICE_OFFICER','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/getpoint/{id}", method = RequestMethod.GET)
     public String getPoint(@PathVariable("id") String drivingLicense, Model model) {
         Optional<DriverPoint> driverPoint = driverPointService.getBydrivingLisence(drivingLicense);

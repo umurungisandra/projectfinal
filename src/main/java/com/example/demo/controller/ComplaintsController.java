@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -38,7 +39,7 @@ public class ComplaintsController {
         binder.registerCustomEditor(       Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-    @PreAuthorize("permitAll")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/complaints", method = RequestMethod.GET)
     public String getComplaintsPage(Model model) {
         model.addAttribute("complaints", new Complaints());
@@ -46,10 +47,11 @@ public class ComplaintsController {
         return "complaints";
     }
     @RequestMapping(value = "/complaints/save", method = RequestMethod.POST)
-    public String saveComplaints(@Valid @ModelAttribute("complaints") Complaints complaints,BindingResult bindingResult, Authentication authentication,  Model model) {
+    public String saveComplaints(@Valid @ModelAttribute("complaints") Complaints complaints,BindingResult bindingResult, Authentication authentication,  Model model,RedirectAttributes redirectAttrs) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError().getField());
             model.addAttribute("complaints", complaints);
+            redirectAttrs.addFlashAttribute("messages", "success");
             return "/complaints";
         } else {
             CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
@@ -58,10 +60,11 @@ public class ComplaintsController {
             complaints.setSavedDate(new Date());
             complaintsService.saveOrUpdate(complaints);
             model.addAttribute("complaints", new Complaints());
+            model.addAttribute("messages", "unsuccess");
             return "redirect:/complaints";
         }
     }
-
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/complaints/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("complaints", complaintsService.getAll());
@@ -73,6 +76,7 @@ public class ComplaintsController {
         Integer idComplaints = Integer.parseInt(id);
         Complaints complaints = complaintsService.getById(idComplaints);
         model.addAttribute("complaints", complaints);
+
         return "complaintsEdit";
     }
 }

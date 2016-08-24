@@ -27,6 +27,7 @@ public class Contravention {
     private String plateNumber ;
     @NotEmpty
     private  String descriptionOffence ;
+    private int amount;
     private  boolean payment;
     @NotNull
     private Users savedBy;
@@ -124,6 +125,15 @@ public class Contravention {
     public void setDescriptionOffence(String descriptionOffence) {
         this.descriptionOffence = descriptionOffence;
     }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
     @Column
     public boolean isPayment() {
         return payment;

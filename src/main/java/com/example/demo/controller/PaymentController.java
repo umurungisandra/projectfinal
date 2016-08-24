@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * Created by sandra on 5/29/2016.
  */
-@SpringBootApplication
+
 @RestController
 public class PaymentController {
     @Autowired
@@ -51,11 +51,12 @@ public class PaymentController {
         return "redirect:/payment";
     }
 
-    @RequestMapping(value = "/payment/id/{id}", method = RequestMethod.POST)
-    public String getPayment(@PathVariable("id") Optional<String> drivingLicense, @RequestBody Payment payment) {
-
+    @RequestMapping(value = "/api/payment/id/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public String postPayment(@PathVariable("id") Optional<String> drivingLicense, @RequestBody Payment payment) {
+        System.out.println("++++++++++drivingLicense:  " + drivingLicense);
         int amount = getBalance(drivingLicense.get());
-        if (amount < payment.getAmountPaid()) {
+        if (amount > payment.getAmountPaid()) {
             return "amount paid are insufficient";
         } else {
             List<Contravention> contraventions = contraventionService.getBydrivingLicense(drivingLicense.get());
@@ -67,6 +68,24 @@ public class PaymentController {
 
             return "Completed";
         }
+    }
+    @RequestMapping(value = "/api/payment/id/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String getPayment(@PathVariable("id") Optional<String> drivingLicense) {
+        System.out.println("GET ++++++++++drivingLicense:  " + drivingLicense);
+//        int amount = getBalance(drivingLicense.get());
+//        if (amount > payment.getAmountPaid()) {
+//            return " GET amount paid are insufficient";
+//        } else {
+            List<Contravention> contraventions = contraventionService.getBydrivingLicense(drivingLicense.get());
+            for (Contravention cont : contraventions) {
+                cont.setPayment(true);
+                contraventionService.saveOrUpdate(cont);
+            }
+//            paymentService.saveOrUpdate(payment);
+
+            return "Completed";
+//        }
     }
 
     @RequestMapping("/getbalance/{id}")
@@ -83,21 +102,26 @@ public class PaymentController {
             double amande = 0;
             Calendar cal = Calendar.getInstance();
             cal.setTime(contravention.getSavedDate());
-            cal.add(Calendar.DATE, 3);
+//            cal.add(Calendar.DATE, 3);
             Date contDate = cal.getTime();
             Date input = new Date();
             LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate cDate = contDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            long diff = Duration.between(date.atTime(0, 0), cDate.atTime(0, 0)).toDays();
-            System.out.println(diff);
-            if (diff >3) {
-                amande = 0.2 * diff;
-            }
+            long diff = Duration.between(cDate.atTime(0, 0), date.atTime(0, 0)).toDays();
+            int contrAmount=0;
+            System.out.println(diff+"===========================");
             for (Offences offences : contravention.getOffenceName()) {
                 Punishment punishment = offences.getPunishments();
-                amount += punishment.getOperation().getSetPenalties();
+                int am=punishment.getOperation().getSetPenalties();
+                contrAmount+=am;
+
+            }
+            if (diff >3) {
+                diff-=3;
+                amande = 0.2 * diff*contrAmount;
             }
             amount += amande;
+            amount+=contrAmount;
         }
         return amount;
     }

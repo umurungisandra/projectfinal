@@ -37,7 +37,7 @@ public class OffencesController   {
     @Autowired
     UserService userService;
 
-    @PreAuthorize("hasAnyRole('ROLE_CHIEF_OF_DISTRICT', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/offences", method = RequestMethod.GET)
     public String getOffencesPage(Model model) {
         model.addAttribute("offences", new Offences());
@@ -51,6 +51,7 @@ public class OffencesController   {
             System.out.println(bindingResult.getFieldError().getField());
             model.addAttribute("offences", offences);
             model.addAttribute("punishements", punishementService.getAll());
+            redirectAttrs.addFlashAttribute("messages", "success");
             return "/offences";
 
         } else {
@@ -60,18 +61,18 @@ public class OffencesController   {
             offences.setSavedDate(new Date());
             offencesService.saveOrUpdate(offences);
             model.addAttribute("offences", new Offences());
-            redirectAttrs.addAttribute("result", "Saved SUCCESSFULLY");
+            model.addAttribute("messages", "unsuccess");
             return "redirect:/offences";
         }
     }
-    @PreAuthorize("hasAnyRole('ROLE_CHIEF_OF_DISTRICT', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/offences/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("offences", offencesService.getAll());
         return "offencesList";
     }
 
-
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/offences/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idOffences = Integer.parseInt(id);

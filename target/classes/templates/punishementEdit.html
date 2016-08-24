@@ -38,7 +38,16 @@
                 </div>
                 <!-- /.row -->
 
-
+                <div th:if="${messages eq 'unsuccess'}">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Error!</strong> Data Not Saved.
+                    </div>
+                </div>
+                <div th:if="${messages eq 'success'}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <strong>Success!</strong> Data Saved Successfully.
+                    </div>
+                </div>
                 <form th:object="${punishement}" th:action="@{/punishement/save}" action="#" method="post" class="form-horizontal" role="form">
                     <div style="display: none">
                         <input type="text" th:field="*{id}" class="form-control" th:href="id"/>

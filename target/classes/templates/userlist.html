@@ -43,6 +43,7 @@
                             <thead>
                             <th>firstName</th>
                             <th>lastName</th>
+                            <th>NumberMatricule</th>
                             <th>province</th>
                             <th>district</th>
                             <th>sector</th>
@@ -60,12 +61,13 @@
                             <tr th:each="usr : ${users}">
                                 <td th:text="${usr.firstName}">firstname</td>
                                 <td th:text="${usr.lastName}">lastname</td>
+                                <td th:text="${usr.numberMatricule}">lastname</td>
                                 <td th:text="${usr.province}">province</td>
                                 <td th:text="${usr.district}">district</td>
                                 <td th:text="${usr.sector}">sector</td>
                                 <td th:text="${usr.cell}">cell</td>
                                 <td th:text="${usr.village}">village</td>
-                                <td th:text="${usr.role.roleName}">roleName</td>
+                                <td th:text="${usr.role}">role</td>
                                 <td th:text="${usr.telphone}">Saved Date</td>
                                 <td th:text="${usr.username}">username</td>
                                 <td th:text="${usr.savedBy.username}">SavedBy</td>

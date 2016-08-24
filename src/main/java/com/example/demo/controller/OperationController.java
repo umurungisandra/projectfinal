@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.Model.CurrentUser;
-import com.example.demo.Model.Operation;
+import com.example.demo.Model.PunishmentPolicy;
 import com.example.demo.Model.Users;
 import com.example.demo.service.OperationService;
-import com.example.demo.service.PunishementService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -15,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -34,16 +34,17 @@ public class OperationController {
         binder.registerCustomEditor(       Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-    @PreAuthorize("hasAnyRole('ROLE_CHIEF_OF_DISTRICT', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/operation",method = RequestMethod.GET)
     public String getOperationPage(Model model) {
-        model.addAttribute("operation", new Operation());
+        model.addAttribute("operation", new PunishmentPolicy());
         return "operation";
     }
     @RequestMapping(value = "/operation/save",method = RequestMethod.POST)
-    public String saveOperation(@Valid @ModelAttribute("operation") Operation operation,BindingResult bindingResult ,Authentication authentication, Model model){
+    public String saveOperation(@Valid @ModelAttribute("operation") PunishmentPolicy operation, BindingResult bindingResult , Authentication authentication, Model model, RedirectAttributes redirectAttrs){
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError().getField());
+            redirectAttrs.addFlashAttribute("messages", "success");
             model.addAttribute("operation", operation);
             return "/operation";
         }
@@ -53,13 +54,14 @@ public class OperationController {
             operation.setSavedBy(users);
             operation.setSavedDate(new Date());
             operationService.saveOrUpdate(operation);
-            model.addAttribute("operation", new Operation());
+            model.addAttribute("operation", new PunishmentPolicy());
             Integer idOperation = operation.getId();
+            model.addAttribute("messages", "unsuccess");
             return "redirect:/operation/punishet/" + idOperation;
         }
 
     }
-    @PreAuthorize("hasAnyRole('ROLE_CHIEF_OF_DISTRICT', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/operation/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("operation", operationService.getAll());
@@ -68,7 +70,7 @@ public class OperationController {
     @RequestMapping(value = "/operation/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idOperation = Integer.parseInt(id);
-        Operation operation = operationService.getById(idOperation);
+        PunishmentPolicy operation = operationService.getById(idOperation);
         model.addAttribute("operation", operation);
         return "operationEdit";
     }

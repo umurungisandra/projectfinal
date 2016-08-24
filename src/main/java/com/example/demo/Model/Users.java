@@ -69,7 +69,7 @@ public class Users {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    @Column
+    @Column(name = "numberMatricule", unique = true, nullable = false,length = 100)
     public String getNumberMatricule() {
         return numberMatricule;
     }
@@ -147,7 +147,8 @@ public class Users {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL,targetEntity = Roles.class, fetch = FetchType.EAGER)
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     public Roles getRole() {
         return role;
     }

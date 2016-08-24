@@ -10,8 +10,8 @@ import java.util.Date;
  * Created by sandra on 7/2/2016.
  */
 @Entity
-@Table(name="Operation")
-public class Operation {
+@Table
+public class PunishmentPolicy {
     private Integer id;
     private int setMark;
     private int setPenalties;

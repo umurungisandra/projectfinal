@@ -18,8 +18,19 @@ public class Payment {
     private String numberBankslip;
     private String drivingLicense;
 
+    public Payment() {
+    }
 
-@Id
+    public Payment(Date date, int amountDue, int amountPaid, String numberBankslip, String drivingLicense) {
+
+        this.date = date;
+        this.amountDue = amountDue;
+        this.amountPaid = amountPaid;
+        this.numberBankslip = numberBankslip;
+        this.drivingLicense = drivingLicense;
+    }
+
+    @Id
     public Integer getId() {
         return id;
     }
@@ -45,7 +56,7 @@ public class Payment {
         this.amountDue = amountDue;
     }
 
-    public int  getAmountPaid() {
+    public int getAmountPaid() {
         return amountPaid;
     }
 

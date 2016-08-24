@@ -2,7 +2,7 @@ package com.example.demo.config;
 
 import com.example.demo.Model.Roles;
 import com.example.demo.Model.Users;
-import com.example.demo.service.RolesService;
+
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -28,8 +28,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RolesService roleService;
 
     @Override
     @Transactional
@@ -37,40 +35,36 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         if (!isAlreadySetup()) {
             return;
         }
-            System.out.println(contextRefreshedEvent.getClass().getName()+"============= isAlreadySetup");
-            createRoleIfNotFound("ROLE_ADMIN");
-            System.out.println(contextRefreshedEvent.getClass().getName()+"=============");
-            final Roles adminRole = (Roles) roleService.getByroleName("ROLE_ADMIN");
-            final Users user = new Users();
-            user.setUsername("Admin");
 
+        createRoleIfNotFound("Admin");
 
-            user.setPassword(new BCryptPasswordEncoder().encode("demo"));
-            Roles role ;
+        final Roles adminRole = Roles.ADMIN;
+        final Users user = new Users();
+        user.setUsername("admin");
+        String pass = "demo";
+        BCryptPasswordEncoder b = new BCryptPasswordEncoder();
+        user.setPassword(b.encode(pass));
+        user.setSavedDate(new Date());
+        user.setFirstName("firstaName");
+        user.setLastName("lastName");
+        user.setDistrict("district");
+        user.setSector("sector");
+        user.setCell("cell");
+        user.setVillage("village");
+        user.setNumberMatricule("numbermatricule");
+        user.setProvince("province");
+        user.setEnabled(true);
+        user.setRole(adminRole);
+        userService.saveOrUpdate(user);
 
-
-            user.setEnabled(true);
-            userService.saveOrUpdate(user);
-
-            alreadySetup = true;
+        alreadySetup = true;
 
         }
-
     @Transactional
     private final Roles createRoleIfNotFound(final String name) {
+        return Roles.valueOf(name);
 
-        Roles role =  roleService.getByroleName(name);
-        System.out.println(name+"=============++++++++++ isAlreadySetup");
-        if (role == null) {
-            role = new Roles();
-           role.setRoleName(name);
-            role.setVoided(false);
-            role.setSavedDate(new Date());
-            roleService.saveOrUpdate(role);
-        }
-        return role;
     }
-
     @Transactional
     private boolean isAlreadySetup() {
         Collection<Users> users= userService.getAll();

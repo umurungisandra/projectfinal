@@ -215,7 +215,8 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-header" sec:authorize="isAuthenticated()">
             <ul class="nav navbar-nav navbar-left">
-                <li>
+                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')">
+
                     <a id="dLabel" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
                         Administration <span class="caret"></span>
                     </a>
@@ -224,26 +225,22 @@
                         <li><a href="#"></a></li>
                         <li class="divider"></li>
                         <li class="dropdown-submenu">
+
                             <a tabindex="-1" href="#">User Management</a>
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/users}">Add User </a></li>
+                                <li><a tabindex="-1" th:href="@{/users/list}">List User </a></li>
 
                             </ul>
 
                         </li>
-                        <li class="dropdown-submenu">
 
-                            <a tabindex="-1" href="#">Role Management</a>
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/roles}">Add Role </a></li>
-
-                            </ul>
-                        </li>
                     </ul>
+
                 </li>
 
-                <li>
+                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
                     <a id="dpunish" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
                         Punishment <span class="caret"></span>
                     </a>
@@ -256,7 +253,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/punishement}">Add Punishment </a></li>
-
+                                <li><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
                             </ul>
 
                         </li>
@@ -264,7 +261,7 @@
                     </ul>
                 </li>
 
-                <li>
+                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
                     <a id="doffence" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
                         Offences <span class="caret"></span>
                     </a>
@@ -277,7 +274,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/offences}">Add Offences </a></li>
-
+                                <li><a tabindex="-1" th:href="@{/offences/list}">List Offences</a></li>
                             </ul>
 
                         </li>
@@ -286,7 +283,7 @@
                 </li>
 
 
-                <li>
+                <li >
                     <a id="contravention" role="button" data-toggle="dropdown" class="" data-target="#"
                        href="/page.html">
                         Contravention <span class="caret"></span>
@@ -299,18 +296,19 @@
                             <a tabindex="-1" href="#">Contravention Management</a>
 
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/contravention}">Add Contravention </a></li>
+                                <li sec:authorize="hasAuthority('POLICE_OFFICER')"><a tabindex="-1" th:href="@{/contravention}">Add Contravention </a></li>
 
-                                <li><a tabindex="-1" th:href="@{/getbalance}">Check Balance </a></li>
-                                <li><a tabindex="-1" th:href="@{/getpoint}">Check Point </a></li>
-
+                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/getbalance}">Check Balance </a></li>
+                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','POLICE_OFFICER','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/getpoint}">Check Point </a></li>
+                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/list}">List Contravention</a></li>
+                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/list/payment}">List of Payment</a></li>
                             </ul>
 
                         </li>
 
                     </ul>
                 </li>
-                <li>
+                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
                     <a id="dop" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
                         Operation <span class="caret"></span>
                     </a>
@@ -323,7 +321,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/operation}">Add Operation </a></li>
-
+                                <li><a tabindex="-1" th:href="@{/operation/list}">List Operation</a></li>
                             </ul>
 
                         </li>
@@ -331,7 +329,7 @@
                     </ul>
                 </li>
 
-                <li>
+                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')">
                     <a id="dcp" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
                         Complaints <span class="caret"></span>
                     </a>
@@ -343,8 +341,8 @@
                             <a tabindex="-1" href="#">Complaints Management</a>
 
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/complaints}">Add Complaint </a></li>
-
+                                <li ><a tabindex="-1" th:href="@{/complaints}">Add Complaint </a></li>
+                                <li><a tabindex="-1" th:href="@{/complaints/list}">List Complaint</a></li>
                             </ul>
 
                         </li>
@@ -360,25 +358,13 @@
                         <li><a href="#"></a></li>
                         <li><a href="#"></a></li>
                         <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">Simple Report</a>
 
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/users/list}">List User </a></li>
-                                <li><a tabindex="-1" th:href="@{/roles/list}">List Role </a></li>
-                                <li><a tabindex="-1" th:href="@{/operation/list}">List Operation</a></li>
-                                <li><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
-                                <li><a tabindex="-1" th:href="@{/offences/list}">List Offences</a></li>
-
-                            </ul>
-
-                        </li>
                         <li class="dropdown-submenu">
 
                             <a tabindex="-1" href="#">Details Report</a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/contravention/list}">List Contravention</a></li>
-                                <li><a tabindex="-1" th:href="@{/complaints/list}">List Complaint</a></li>
+
+
 
                             </ul>
                         </li>

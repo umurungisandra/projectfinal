@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.Model.CurrentUser;
 import com.example.demo.Model.Police;
 import com.example.demo.Model.Users;
-import com.example.demo.service.RolesService;
+
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
@@ -30,22 +31,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class UsersController {
     @Autowired
     UserService userService;
-    @Autowired
-    RolesService rolesService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(       Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-    @PreAuthorize("hasAnyRole('ROLE_CHIEF_OF_DISTRICT','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String getUserPage(Model model) {
         model.addAttribute("user", new Users());
-        model.addAttribute("role", rolesService.getAll());
+
         return "users";
     }
     @RequestMapping(value = "/users/save", method = RequestMethod.POST)
-    public String saveUser(@Valid @ModelAttribute("user") Users users, BindingResult bindingResult, Authentication authentication, Model model) {
+    public String saveUser(@Valid @ModelAttribute("user") Users users, BindingResult bindingResult, Authentication authentication, Model model,RedirectAttributes redirectAttrs) {
         if (!bindingResult.hasErrors()) {
             if (users.getNumberMatricule() != null) {
                 if (!checkPoliceExist(users.getNumberMatricule())) {
@@ -68,12 +68,14 @@ public class UsersController {
                 users.setVillage(village);
                 userService.saveOrUpdate(users);
                 model.addAttribute("user", new Users());
+                redirectAttrs.addFlashAttribute("messages", "success");
                 return "redirect:/users";
 
 
             } else {
 
                 model.addAttribute("users", users);
+                model.addAttribute("messages", "unsuccess");
                 return "/users";
             }
         }
@@ -81,22 +83,24 @@ public class UsersController {
      else {
 
         model.addAttribute("users", users);
+            model.addAttribute("messages", "unsuccess");
         return "/users";
     }
 
   }
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/users/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("users", userService.getAll());
         return "userlist";
     }
-
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/users/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idUser = Integer.parseInt(id);
         Users users = userService.getById(idUser);
         model.addAttribute("user", users);
-        model.addAttribute("roles", rolesService.getAll());
+
         return "userEdit";
     }
 

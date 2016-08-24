@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.Model.Operation;
+import com.example.demo.Model.PunishmentPolicy;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import java.util.List;
  * Created by sandra on 7/2/2016.
  */
 public interface OperationService {
-    void saveOrUpdate(Operation operation);
-    void delete(Operation operation);
-    List<Operation> getAll();
+    void saveOrUpdate(PunishmentPolicy operation);
+    void delete(PunishmentPolicy operation);
+    List<PunishmentPolicy> getAll();
     //List<Operation> getBydescription(String description);
-    Operation getById(Integer idOperation);
+    PunishmentPolicy getById(Integer idOperation);
 }

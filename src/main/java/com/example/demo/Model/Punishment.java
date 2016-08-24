@@ -14,7 +14,7 @@ import java.util.Date;
 public class Punishment {
     private Integer id;
     @NotNull
-    private Operation operation;
+    private PunishmentPolicy operation;
     @NotNull
     private String description;
     private Users savedBy;
@@ -54,12 +54,12 @@ public class Punishment {
     //public void setPenalties(int penalties) {
         //this.penalties = penalties;
    // }
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Operation.class)
-    public Operation getOperation() {
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = PunishmentPolicy.class)
+    public PunishmentPolicy getOperation() {
         return operation;
    }
 
-    public void setOperation(Operation operation) {
+    public void setOperation(PunishmentPolicy operation) {
        this.operation = operation;
     }
 

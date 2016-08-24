@@ -32,7 +32,6 @@ public class Complaints {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "complaints_id")
-
     public Integer getId() {
         return id;
     }
