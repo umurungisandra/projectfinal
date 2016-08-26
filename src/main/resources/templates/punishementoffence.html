@@ -15,7 +15,7 @@
             <i class="fa fa-dashboard"></i> <a th:href="@{/offences/list}">List Offences</a>
         </li>
         <li class="active">
-            <i class="fa fa-edit"></i>
+
         </li>
     </ol>
 </div>
@@ -49,7 +49,7 @@
                 </div>
                 <form th:object="${offences}" th:action="@{/offences/save}" action="#" method="post" class="form-horizontal" role="form">
                     <div class="form-group" style="display: none">
-                        <label class="col-xs-2 control-label" for="punishement">Operation</label>
+                        <label class="col-xs-2 control-label" for="punishement">Punishement Policy</label>
                         <div class="col-xs-6">
                             <input type="text" th:field="*{punishments}" class="form-control" placeholder="punishement" id="punishement"/>
                         </div>
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-xs-2 control-label" for="description">nameOffence</label>
+                        <label class="col-xs-2 control-label" for="description">Offence Name</label>
                         <div class="col-xs-6">
                             <input type="text" id="description" class="form-control" th:field="*{nameOffence}"/>
                             <div th:if="${#fields.hasErrors('nameOffence')}" th:errors="*{nameOffence}"> Description Error</div>

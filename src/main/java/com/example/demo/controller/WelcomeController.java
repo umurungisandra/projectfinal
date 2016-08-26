@@ -15,20 +15,25 @@ import org.springframework.web.servlet.ModelAndView;
 public class WelcomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHomePage() {
-        return "home";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (!(auth instanceof AnonymousAuthenticationToken)) {
+            return "index";
+        } else {
+            return "home";
+        }
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-
     public String getIndexPage() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(auth instanceof AnonymousAuthenticationToken)) {
-
-    /* The user is logged in :) */
-            //return new String("forward:/index");
+            return "index";
+        } else {
+            return "home";
         }
-        return "index";
+
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

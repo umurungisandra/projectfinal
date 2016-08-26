@@ -38,11 +38,13 @@
                     <th>name</th>
                     <th>drivingLicense</th>
                     <th>offenceName</th>
+                    <th>Amount</th>
                     <th>payment</th>
                     <th>Saved Date</th>
             </thead>
                 <tfoot>
 
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -59,6 +61,7 @@
                                 <li th:each="item : ${cmt.offenceName}" th:text="${item.nameOffence}+' And Amount '+${item.punishments.operation.setPenalties}">Item description here...</li>
                             </ul>
                         </td>
+                        <td th:text="${cmt.offenceName.operation.setPenalties}">Amount</td>
                         <td th:text="${cmt.payment}">payment</td>
 
                         <!--<td th:text="${cmt.offenceName.punishments.operation.setPenalties}">Amount</td>-->

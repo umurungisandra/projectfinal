@@ -7,14 +7,14 @@
 </head>
 <div class="col-lg-12" layout:fragment="header">
     <h1 class="page-header">
-        Offences
+        Punishement Policy
     </h1>
     <ol class="breadcrumb">
         <li>
-            <i class="fa fa-dashboard"></i> <a th:href="@{/operation/list}">List operation</a >
+            <i class="fa fa-dashboard"></i> <a th:href="@{/operation/list}">List Punishement Policy</a >
         </li>
         <li class="active">
-            <i class="fa fa-edit"></i>
+
         </li>
     </ol>
 </div>
@@ -33,7 +33,7 @@
         <div class="col-lg-12">
             <div class="panel panel-success">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Operation</h3>
+                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Punishement Policy</h3>
                 </div>
                 <!-- /.row -->
                 <div th:if="${messages eq 'unsuccess'}">
@@ -48,14 +48,14 @@
                 </div>
                 <form th:object="${operation}" th:action="@{/operation/save}" action="#" method="post" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-xs-2 control-label" for="setMark">SetMark</label>
+                        <label class="col-xs-2 control-label" for="setMark">Set Mark</label>
                         <div class="col-xs-6">
                             <input type="number" id="setMark" class="form-control" th:field="*{setMark}"/>
                             <div th:if="${#fields.hasErrors('setMark')}" th:errors="*{setMark}">SetMark Error</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 control-label" for="setPenalties">SetPenalties</label>
+                        <label class="col-xs-2 control-label" for="setPenalties">Set Amount</label>
                         <div class="col-xs-6">
                             <input type="number" id="setPenalties" class="form-control" th:field="*{setPenalties}"/>
                             <div th:if="${#fields.hasErrors('setPenalties')}" th:errors="*{setPenalties}">SetPenalties Error</div>

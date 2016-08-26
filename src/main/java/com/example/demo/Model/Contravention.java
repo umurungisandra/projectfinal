@@ -32,6 +32,7 @@ public class Contravention {
     @NotNull
     private Users savedBy;
     private Date savedDate;
+
     private boolean voided;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
