@@ -13,5 +13,7 @@ public interface DriverPointService {
     void delete(DriverPoint driverPoint);
     List<DriverPoint> getAll();
     DriverPoint getBypoint(int point);
+    DriverPoint getByfirstName(String firstName);
+    DriverPoint getBylastName(String lastName);
     Optional<DriverPoint> getBydrivingLisence(String drivingLisence);
 }

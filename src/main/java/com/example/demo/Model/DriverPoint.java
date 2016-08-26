@@ -11,6 +11,8 @@ public class DriverPoint {
     private Integer id;
     private Driver driver;
     private int driverPoint;
+    private String firstName;
+    private String lastName;
     private Integer telephone;
     private boolean voided;
     @Id
@@ -48,7 +50,24 @@ public class DriverPoint {
     public void setVoided(boolean voided) {
         this.voided = voided;
     }
- @Column
+@Column
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+@Column
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column
     public Integer getTelephone() {
         return telephone;
     }

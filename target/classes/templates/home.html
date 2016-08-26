@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:sec="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 >
 
@@ -38,6 +38,7 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+
     <div class="container topnav">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -52,11 +53,30 @@
             <img  alt="" src="https://pbs.twimg.com/profile_images/1689403802/Logo_police_social_media_bigger.png"/>
             <h7> Rwanda National Police</h7>
         </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <ul class="list-inline">
+                <li>
+                    <h3>
+                    <a th:href="@{/drivertelephone}">Registration</a >
+                    </h3>
+                </li>
 
+                <li>
+                    <h3 sec:authorize="isAnonymous()">
+                        <a th:href="@{/login}"><i class="fa fa-fw fa-power-off"></i> Login Staff </a>
+                    </h3>
+                </li>
+
+            </ul>
+                </ul>
+        </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
 
         <!-- /.navbar-collapse -->
     </div>
+
+
     <!-- /.container -->
 </nav>
 
@@ -76,9 +96,7 @@
                     <hr class="intro-divider"/>
                     <ul class="list-inline intro-social-buttons">
 
-                        <li sec:authorize="isAnonymous()">
-                            <a th:href="@{/login}"><i class="fa fa-fw fa-power-off"></i> Login</a>
-                        </li>
+
 
                     </ul>
                 </div>

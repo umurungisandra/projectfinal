@@ -40,6 +40,16 @@ public class DriverPointServiceImp implements DriverPointService{
     }
 
     @Override
+    public DriverPoint getByfirstName(String firstName) {
+        return driverPointDao.findByFirstName(firstName);
+    }
+
+    @Override
+    public DriverPoint getBylastName(String lastName) {
+        return driverPointDao.findByLastName(lastName);
+    }
+
+    @Override
     public Optional<DriverPoint> getBydrivingLisence(String drivingLisence) {
         List<DriverPoint> driverPoints=getAll();
         for(DriverPoint d:driverPoints){
