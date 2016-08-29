@@ -32,11 +32,10 @@ public class ReportController {
     public ResponseEntity<List<ContraventionComplaints>> getContraventionComplaints(){
 
         List<ContraventionComplaints> contraventionComplaints =new ArrayList<>();
-        int count=0;
+
         for(Complaints complaints:complaintsService.getAll()) {
             for (Contravention contravention : contraventionService.getAll()) {
-                count = contraventionService.countByContraventionAndComplaints(contravention, complaints);
-                contraventionComplaints.add(new ContraventionComplaints(contravention, complaints, count));
+                contraventionComplaints.add(new ContraventionComplaints(complaints,contravention));
             }
         }
         return new ResponseEntity<>(contraventionComplaints, HttpStatus.OK);

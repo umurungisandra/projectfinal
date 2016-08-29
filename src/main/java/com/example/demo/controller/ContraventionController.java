@@ -99,12 +99,12 @@ public class ContraventionController {
         return "contraventionlist";
     }
 
-    @RequestMapping(value = "/contravention/list/payment", method = RequestMethod.GET)
-    public String getListPagee(Model model) {
-        model.addAttribute("contravention", contraventionService.getAll());
+    //@RequestMapping(value = "/contravention/list/payment", method = RequestMethod.GET)
+    //public String getListPagee(Model model) {
+        //model.addAttribute("contravention", contraventionService.getAll());
 
-        return "contraventionlistpayment";
-    }
+        //return "contraventionlistpayment";
+    //}
 
 
     private Driver getDriverByDrivingLicense(String drivingLicense) {

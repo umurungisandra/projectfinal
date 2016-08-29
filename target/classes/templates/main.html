@@ -364,8 +364,6 @@
                             <a tabindex="-1" href="#">Details Report</a>
                             <ul class="dropdown-menu">
 
-
-
                             </ul>
                         </li>
                         <li class="dropdown-submenu">
@@ -500,7 +498,7 @@
 
 // Total over all pages
             total = api
-                    .column(4)
+                    .column(2)
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
@@ -508,14 +506,14 @@
 
 // Total over this page
             pageTotal = api
-                    .column(4, {page: 'current'})
+                    .column(2, {page: 'current'})
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
 
 // Update footer
-            $(api.column(4).footer()).html(
+            $(api.column(2).footer()).html(
                     'Frw ' + pageTotal + ' ( Frw ' + total + ' total)'
             );
         }
@@ -627,12 +625,9 @@
             var comp=row.complaints;
 
             dataRow.push(contra.name.toString());
-            dataRow.push(contra.drivingLicense);
-            dataRow.push(contra.offenceName);
-            dataRow.push(comp.responsible);
-            dataRow.push(row.count+'');
-
-
+            dataRow.push(contra.drivingLicense.toString());
+            dataRow.push(contra.offenceName.toString());
+            dataRow.push(comp.responsible.toString());
 
 
 
