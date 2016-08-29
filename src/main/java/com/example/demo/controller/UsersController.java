@@ -49,7 +49,6 @@ public class UsersController {
         if (!bindingResult.hasErrors()) {
             if (users.getNumberMatricule() != null) {
                 if (!checkPoliceExist(users.getNumberMatricule())) {
-
                     model.addAttribute("users", users);
                     return "/users";
                 }

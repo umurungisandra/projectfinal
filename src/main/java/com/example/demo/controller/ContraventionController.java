@@ -63,8 +63,9 @@ public class ContraventionController {
             }
             contraventionService.saveOrUpdate(contravention);
             model.addAttribute("contravention", new Contravention());
+            redirectAttrs.addFlashAttribute("messages", "success");
             model.addAttribute("offences", offencesService.getAll());
-            model.addAttribute("messages", "unsuccess");
+
             return "redirect:/contravention";
 
         } else if (contravention.getPlateNumber() != null) {

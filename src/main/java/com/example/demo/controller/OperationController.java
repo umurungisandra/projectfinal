@@ -44,7 +44,7 @@ public class OperationController {
     public String saveOperation(@Valid @ModelAttribute("operation") PunishmentPolicy operation, BindingResult bindingResult , Authentication authentication, Model model, RedirectAttributes redirectAttrs){
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError().getField());
-            redirectAttrs.addFlashAttribute("messages", "success");
+
             model.addAttribute("operation", operation);
             return "/operation";
         }
@@ -55,8 +55,9 @@ public class OperationController {
             operation.setSavedDate(new Date());
             operationService.saveOrUpdate(operation);
             model.addAttribute("operation", new PunishmentPolicy());
+            redirectAttrs.addFlashAttribute("messages", "success");
             Integer idOperation = operation.getId();
-            model.addAttribute("messages", "unsuccess");
+
             return "redirect:/operation/punishet/" + idOperation;
         }
 

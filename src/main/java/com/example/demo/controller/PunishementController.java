@@ -51,7 +51,7 @@ public class PunishementController {
             System.out.println(bindingResult.getFieldError().getField());
             model.addAttribute("punishement", punishement);
             model.addAttribute("operation", operationService.getAll());
-            redirectAttrs.addFlashAttribute("messages", "success");
+
             return "/punishement";
         } else {
             CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
@@ -60,8 +60,9 @@ public class PunishementController {
             punishement.setSavedDate(new Date());
             punishementService.saveOrUpdate(punishement);
             model.addAttribute("punishement", new Punishment());
+            redirectAttrs.addFlashAttribute("messages", "success");
             Integer idPunishement = punishement.getId();
-            model.addAttribute("messages", "unsuccess");
+
             return "redirect:/punishement/offen/"+idPunishement;
         }
     }

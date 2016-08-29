@@ -47,11 +47,10 @@ public class ComplaintsController {
         return "complaints";
     }
     @RequestMapping(value = "/complaints/save", method = RequestMethod.POST)
-    public String saveComplaints(@Valid @ModelAttribute("complaints") Complaints complaints,BindingResult bindingResult, Authentication authentication,  Model model,RedirectAttributes redirectAttrs) {
+    public String saveComplaints(@Valid @ModelAttribute("complaints") Complaints complaints,BindingResult bindingResult, Authentication authentication,Model model,RedirectAttributes redirectAttrs) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.getFieldError().getField());
             model.addAttribute("complaints", complaints);
-            redirectAttrs.addFlashAttribute("messages", "success");
             return "/complaints";
         } else {
             CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
@@ -60,9 +59,10 @@ public class ComplaintsController {
             complaints.setSavedDate(new Date());
             complaintsService.saveOrUpdate(complaints);
             model.addAttribute("complaints", new Complaints());
-            model.addAttribute("messages", "unsuccess");
+            redirectAttrs.addFlashAttribute("messages", "success");
             return "redirect:/complaints";
         }
+
     }
     @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/complaints/list", method = RequestMethod.GET)

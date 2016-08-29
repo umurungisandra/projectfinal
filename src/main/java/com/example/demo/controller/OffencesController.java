@@ -51,7 +51,7 @@ public class OffencesController   {
             System.out.println(bindingResult.getFieldError().getField());
             model.addAttribute("offences", offences);
             model.addAttribute("punishements", punishementService.getAll());
-            redirectAttrs.addFlashAttribute("messages", "success");
+
             return "/offences";
 
         } else {
@@ -61,7 +61,7 @@ public class OffencesController   {
             offences.setSavedDate(new Date());
             offencesService.saveOrUpdate(offences);
             model.addAttribute("offences", new Offences());
-            model.addAttribute("messages", "unsuccess");
+            redirectAttrs.addFlashAttribute("messages", "success");
             return "redirect:/offences";
         }
     }
