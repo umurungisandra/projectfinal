@@ -35,12 +35,12 @@
                 </div>
                 <table class="table table-striped table-hover table-condensed dataTab" id="example">
             <thead>
-            <th>complaint</th>
-            <th>contraventionNumber</th>
-            <th>decision</th>
-            <th>decisionDate</th>
-            <th>complaintDate</th>
-            <th>responsible</th>
+            <th>Complaint</th>
+            <th>DrivingLicense</th>
+            <th>Decision</th>
+            <th>DecisionDate</th>
+            <th>ComplaintDate</th>
+            <th>Responsible</th>
             <th>SavedBy</th>
             <th>Saved Date</th>
 
@@ -49,7 +49,7 @@
             <tbody>
             <tr th:each="cmt : ${complaints}">
                 <td th:text="${cmt.complaint}">complaint</td>
-                <td th:text="${cmt.drivingLicense}">contraventionNumber</td>
+                <td th:text="${cmt.drivingLicense.drivingLicense}">contraventionNumber</td>
                 <td th:text="${cmt.decision}">decision</td>
                 <td th:text="${cmt.decisionDate}">decisionDate</td>
                 <td th:text="${cmt.complaintDate}">complaintDate</td>

@@ -140,7 +140,7 @@ public class ContraventionController {
             return false;
         }
     }
-    @PreAuthorize("hasAnyAuthority('POLICE_OFFICER','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('POLICE_OFFICER','CHIEF_OF_STATION','CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/getpoint/{id}", method = RequestMethod.GET)
     public String getPoint(@PathVariable("id") String drivingLicense, Model model) {
         Optional<DriverPoint> driverPoint = driverPointService.getBydrivingLisence(drivingLicense);

@@ -253,7 +253,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/punishement}">Add Punishment </a></li>
-                                <li><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
+
                             </ul>
 
                         </li>
@@ -274,7 +274,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/offences}">Add Offences </a></li>
-                                <li><a tabindex="-1" th:href="@{/offences/list}">List Offences</a></li>
+
                             </ul>
 
                         </li>
@@ -298,10 +298,10 @@
                             <ul class="dropdown-menu">
                                 <li sec:authorize="hasAuthority('POLICE_OFFICER')"><a tabindex="-1" th:href="@{/contravention}">Add Contravention </a></li>
 
-                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/getbalance}">Check Balance </a></li>
-                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','POLICE_OFFICER','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/getpoint}">Check Point </a></li>
+                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/getbalance}">Check Due Amount  </a></li>
+                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','POLICE_OFFICER','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/getpoint}">Check Point Remaining </a></li>
                                 <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/list}">List Contravention</a></li>
-                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/list/payment}">List of Payment</a></li>
+
                             </ul>
 
                         </li>
@@ -310,18 +310,18 @@
                 </li>
                 <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
                     <a id="dop" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
-                        Operation <span class="caret"></span>
+                        Punishement Policy <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                         <li><a href="#"></a></li>
                         <li><a href="#"></a></li>
                         <li class="divider"></li>
                         <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">Operation Management</a>
+                            <a tabindex="-1" href="#">Punishement Policy Management</a>
 
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/operation}">Add Operation </a></li>
-                                <li><a tabindex="-1" th:href="@{/operation/list}">List Operation</a></li>
+                                <li><a tabindex="-1" th:href="@{/operation}">Add Policy </a></li>
+                                <li><a tabindex="-1" th:href="@{/operation/list}">List of Punishement Policy</a></li>
                             </ul>
 
                         </li>
@@ -350,7 +350,7 @@
                     </ul>
                 </li>
 
-                <li>
+                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')">
                     <a id="dreport" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
                         Report <span class="caret"></span>
                     </a>
@@ -358,12 +358,19 @@
                         <li><a href="#"></a></li>
                         <li><a href="#"></a></li>
                         <li class="divider"></li>
+                        <li class="dropdown-submenu">
+
+                            <a tabindex="-1" href="#">Simple Report</a>
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/offences/list}">List Offences</a></li>
+                            </ul>
+                        </li>
 
                         <li class="dropdown-submenu">
 
                             <a tabindex="-1" href="#">Details Report</a>
                             <ul class="dropdown-menu">
-
+                                <li><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
                             </ul>
                         </li>
                         <li class="dropdown-submenu">
@@ -371,9 +378,8 @@
                             <a tabindex="-1" href="#">Summary Report</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#" id="printPdf"><i class="fa fa-fw fa-print"></i>
-                                        Print List of Driver And person responsible
-                                    </a>
+                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/list/payment}">List of Payment</a></li>
+                                <li ><a tabindex="-1" th:href="@{/contraventionComplaints}">Report </a></li>
 
                                 </li>
                             </ul>
@@ -498,7 +504,7 @@
 
 // Total over all pages
             total = api
-                    .column(2)
+                    .column(1)
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
@@ -506,14 +512,14 @@
 
 // Total over this page
             pageTotal = api
-                    .column(2, {page: 'current'})
+                    .column(1, {page: 'current'})
                     .data()
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
 
 // Update footer
-            $(api.column(2).footer()).html(
+            $(api.column(1).footer()).html(
                     'Frw ' + pageTotal + ' ( Frw ' + total + ' total)'
             );
         }

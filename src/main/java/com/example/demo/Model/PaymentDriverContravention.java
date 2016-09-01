@@ -18,7 +18,7 @@ public class PaymentDriverContravention {
         Payment = payment;
     }
 
-    public PaymentDriverContravention(String name, String drivingLicense, int amount) {
+    public PaymentDriverContravention(String name, int amount) {
     }
 
     public String getContravention() {

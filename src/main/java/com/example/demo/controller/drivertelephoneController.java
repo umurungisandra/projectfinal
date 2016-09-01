@@ -23,13 +23,13 @@ public class drivertelephoneController {
     @Autowired
     DriverPointService driverPointService;
 
-    @RequestMapping(value = "/drivertelephone", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/drivertelephone", method = RequestMethod.GET)
     public String getDriverPolicePage(Model model) {
         model.addAttribute("drivertelephone", new DriverPoint());
         return "drivertelephone";
     }
 
-    @RequestMapping(value = "/drivertelephone/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/drivertelephone/save", method = RequestMethod.POST)
     public String saveOperation(@Valid @ModelAttribute("drivertelephone") DriverPoint driverPoint, BindingResult bindingResult, Authentication authentication, Model model, RedirectAttributes redirectAttrs) {
 
             redirectAttrs.addFlashAttribute("messages", "success");

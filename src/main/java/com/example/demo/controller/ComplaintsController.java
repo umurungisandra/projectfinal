@@ -70,7 +70,7 @@ public class ComplaintsController {
         model.addAttribute("complaints", complaintsService.getAll());
         return "complaintslist";
     }
-
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/complaints/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idComplaints = Integer.parseInt(id);

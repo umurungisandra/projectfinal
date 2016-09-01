@@ -48,14 +48,14 @@
                 </div>
                 <form th:object="${operation}" th:action="@{/operation/save}" action="#" method="post" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label class="col-xs-2 control-label" for="setMark">Set Mark</label>
+                        <label class="col-xs-2 control-label" for="setMark"> Mark</label>
                         <div class="col-xs-6">
                             <input type="number" id="setMark" class="form-control" th:field="*{setMark}"/>
                             <div th:if="${#fields.hasErrors('setMark')}" th:errors="*{setMark}">SetMark Error</div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 control-label" for="setPenalties">Set Amount</label>
+                        <label class="col-xs-2 control-label" for="setPenalties"> Amount</label>
                         <div class="col-xs-6">
                             <input type="number" id="setPenalties" class="form-control" th:field="*{setPenalties}"/>
                             <div th:if="${#fields.hasErrors('setPenalties')}" th:errors="*{setPenalties}">SetPenalties Error</div>

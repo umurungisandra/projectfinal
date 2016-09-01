@@ -62,7 +62,7 @@ public class OperationController {
         }
 
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/operation/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("operation", operationService.getAll());

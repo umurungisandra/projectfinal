@@ -51,7 +51,7 @@
                         <form th:object="${contravention}" th:action="@{/contravention/save}" action="#" method="post">
 
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="name">Name</label>
+                                <label class="col-xs-2 control-label" for="name">Driver Name</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="name" class="form-control" th:field="*{nameDriver}"/>
                                     <div th:if="${#fields.hasErrors('nameDriver')}" th:errors="*{nameDriver}">name Error</div>
@@ -62,7 +62,7 @@
 
                             <div class="form-group">
 
-                                <label class="col-xs-2 control-label" for="drivingLicense">drivingLicense</label>
+                                <label class="col-xs-2 control-label" for="drivingLicense">driving License</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="drivingLicense" class="form-control" th:field="*{drivingLicense}"/>
                                     <div th:if="${#fields.hasErrors('drivingLicense')}" th:errors="*{drivingLicense}">drivingLicense Error</div>
@@ -72,7 +72,7 @@
                             <div style="clear:both; display:block;height:10px;"></div>
 
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="offences">offenceName</label>
+                                <label class="col-xs-2 control-label" for="offences">offence Name</label>
                                 <div class="col-xs-6">
                                     <select id="offences" th:field="*{offenceName}" class="selectpicker show-tick form-control" data-live-search="true" multiple="multiple" >
                                         <option value="" text="----Choose Offences----"></option>
@@ -85,7 +85,7 @@
 
                             <div style="clear:both; display:block;height:10px;"></div>
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="policeOfficer">policeOfficer</label>
+                                <label class="col-xs-2 control-label" for="policeOfficer">police Officer</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="policeOfficer" class="form-control" th:field="*{policeOfficer}"/>
                                     <div th:if="${#fields.hasErrors('policeOfficer')}" th:errors="*{policeOfficer}">policeOfficer Error</div>
@@ -94,7 +94,7 @@
 
                             <div style="clear:both; display:block;height:10px;"></div>
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="plateNumber">plateNumber</label>
+                                <label class="col-xs-2 control-label" for="plateNumber">plate Number</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="plateNumber" class="form-control" th:field="*{plateNumber}"/>
                                     <td th:if="${#fields.hasErrors('plateNumber')}" th:errors="*{plateNumber}">plateNumber Error</td>
@@ -103,7 +103,7 @@
 
                             <div style="clear:both; display:block;height:10px;"></div>
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="descriptionOffence">descriptionOffence</label>
+                                <label class="col-xs-2 control-label" for="descriptionOffence">description Offence</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="descriptionOffence" class="form-control" th:field="*{descriptionOffence}"/>
                                     <div th:if="${#fields.hasErrors('descriptionOffence')}" th:errors="*{descriptionOffence}">descriptionOffence Error</div>
