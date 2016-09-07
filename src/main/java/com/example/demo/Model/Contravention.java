@@ -27,7 +27,9 @@ public class Contravention {
     private String plateNumber ;
     @NotEmpty
     private  String descriptionOffence ;
-
+    private String province;
+    private String district;
+    private String sector;
     private  boolean payment;
     @NotNull
     private Users savedBy;
@@ -125,6 +127,30 @@ public class Contravention {
 
     public void setDescriptionOffence(String descriptionOffence) {
         this.descriptionOffence = descriptionOffence;
+    }
+@Column
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+@Column
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+@Column
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 
     @Column

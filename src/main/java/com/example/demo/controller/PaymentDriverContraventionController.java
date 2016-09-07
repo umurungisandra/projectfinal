@@ -38,6 +38,7 @@ public class PaymentDriverContraventionController {
             int amnt = 0;
             for (Offences offences : contr.getOffenceName()) {
                 amnt += offences.getPunishments().getOperation().getSetPenalties();
+
             }
             PaymentDriverContravention p = new PaymentDriverContravention(contr.getId().toString(), contr.getNameDriver(), amnt, contr.getDrivingLicense(), contr.isPayment());
             paymentDriverContravention.add(p);

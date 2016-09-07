@@ -6,6 +6,7 @@ import com.example.demo.Model.ContraventionComplaints;
 import com.example.demo.service.ComplaintsService;
 import com.example.demo.service.ContraventionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class ContraventionComplaintController {
     @Autowired
     ComplaintsService complaintsService;
     private Object contraventionComplaints;
-
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/contraventionComplaints", method = RequestMethod.GET)
     public String getContraventionComplaintsPage(Model model) {
 

@@ -370,7 +370,7 @@
 
                             <a tabindex="-1" href="#">Details Report</a>
                             <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
+                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')"><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
                             </ul>
                         </li>
                         <li class="dropdown-submenu">
@@ -379,7 +379,7 @@
                             <ul class="dropdown-menu">
                                 <li>
                                 <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/list/payment}">List of Payment</a></li>
-                                <li ><a tabindex="-1" th:href="@{/contraventionComplaints}">Report </a></li>
+                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')" ><a tabindex="-1" th:href="@{/contraventionComplaints}">Complaints And Driver </a></li>
 
                                 </li>
                             </ul>

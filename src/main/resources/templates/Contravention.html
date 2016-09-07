@@ -62,7 +62,7 @@
 
                             <div class="form-group">
 
-                                <label class="col-xs-2 control-label" for="drivingLicense">driving License</label>
+                                <label class="col-xs-2 control-label" for="drivingLicense">Driving License</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="drivingLicense" class="form-control" th:field="*{drivingLicense}"/>
                                     <div th:if="${#fields.hasErrors('drivingLicense')}" th:errors="*{drivingLicense}">drivingLicense Error</div>
@@ -72,7 +72,7 @@
                             <div style="clear:both; display:block;height:10px;"></div>
 
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="offences">offence Name</label>
+                                <label class="col-xs-2 control-label" for="offences">Offence Name</label>
                                 <div class="col-xs-6">
                                     <select id="offences" th:field="*{offenceName}" class="selectpicker show-tick form-control" data-live-search="true" multiple="multiple" >
                                         <option value="" text="----Choose Offences----"></option>
@@ -82,19 +82,9 @@
                                 </div>
                             </div>
 
-
                             <div style="clear:both; display:block;height:10px;"></div>
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="policeOfficer">police Officer</label>
-                                <div class="col-xs-6">
-                                    <input type="text" id="policeOfficer" class="form-control" th:field="*{policeOfficer}"/>
-                                    <div th:if="${#fields.hasErrors('policeOfficer')}" th:errors="*{policeOfficer}">policeOfficer Error</div>
-                                </div>
-                            </div>
-
-                            <div style="clear:both; display:block;height:10px;"></div>
-                            <div class="form-group">
-                                <label class="col-xs-2 control-label" for="plateNumber">plate Number</label>
+                                <label class="col-xs-2 control-label" for="plateNumber">Plate Number</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="plateNumber" class="form-control" th:field="*{plateNumber}"/>
                                     <td th:if="${#fields.hasErrors('plateNumber')}" th:errors="*{plateNumber}">plateNumber Error</td>
@@ -103,13 +93,58 @@
 
                             <div style="clear:both; display:block;height:10px;"></div>
                             <div class="form-group">
-                                <label class="col-xs-2 control-label" for="descriptionOffence">description Offence</label>
+                                <label class="col-xs-2 control-label" for="descriptionOffence">Description Offence</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="descriptionOffence" class="form-control" th:field="*{descriptionOffence}"/>
                                     <div th:if="${#fields.hasErrors('descriptionOffence')}" th:errors="*{descriptionOffence}">descriptionOffence Error</div>
                                 </div>
                             </div>
+                            <div style="clear:both; display:block;height:10px;"></div>
+                            <label class="col-xs-2 control-label" >Location</label>
 
+                            <div class="form-group">
+                                       <div class="col-xs-6">
+                                    <label for="province" class="col-sm-2 control-label">Province</label>
+                                        <div class="col-sm-6">
+                                            <div style="clear:both; display:block;height:10px;"></div>
+                                        <input type="hidden" class="form-control" id="province" name="province" placeholder="Province" value="" th:field="*{province}" />
+
+                                        <select class="form-control required adh filter" id="ad_province" name="ad_province">
+                                            <option value="" selected="selected">--Select--</option>
+                                            <option value="Kigali">Kigali City</option>
+                                            <option value="Eastern Province">Eastern Province</option>
+                                            <option value="Western Province">Western Province</option>
+                                            <option value="Northern Province">Northern Province</option>
+                                            <option value="Southern Province">Southern Province</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <div class="form-group">
+                                    <label for="district" class="col-sm-2 control-label">District</label>
+
+                                    <div class="col-sm-6">
+                                        <input type="hidden" class="form-control" id="district" name="district" placeholder="District" value="" th:field="*{district}" />
+
+                                        <select name="dist" id="ad_district" class="adh filter form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="clear:both; display:block;height:10px;"></div>
+                            <div class="form-group">
+                                <label for="sector" class="col-sm-2 control-label">Sector</label>
+
+                                <div class="col-sm-6">
+                                    <input type="hidden" class="form-control" id="sector" name="sector" placeholder="Sector" value="" th:field="*{sector}" />
+
+                                    <select name="sector" id="ad_sector" class="adh filter form-control">
+                                        <option value="">--Select--</option>
+                                    </select>
+                                </div>
+                            </div>
+                                </div>
 
                             <div style="clear:both; display:block;height:10px;"></div>
                             <div class="form-group">
