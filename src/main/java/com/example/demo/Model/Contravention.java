@@ -30,6 +30,7 @@ public class Contravention {
     private String province;
     private String district;
     private String sector;
+    private String numberMatricule;
     private  boolean payment;
     @NotNull
     private Users savedBy;
@@ -160,6 +161,14 @@ public class Contravention {
 
     public void setPayment(boolean payment) {
         this.payment = payment;
+    }
+@Column
+    public String getNumberMatricule() {
+        return numberMatricule;
+    }
+
+    public void setNumberMatricule(String numberMatricule) {
+        this.numberMatricule = numberMatricule;
     }
 }
 
