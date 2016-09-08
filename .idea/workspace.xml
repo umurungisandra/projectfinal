@@ -3,11 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="da44d6d9-c10c-4ceb-9175-690973cdac26" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/Model/Contravention.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/Model/Contravention.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/Contravention.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/Contravention.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/drivertelephone.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/drivertelephone.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/punishement.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/punishement.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/users.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/users.html" />
     </list>
     <ignored path="demo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -963,7 +958,7 @@
       <workItem from="1472797086752" duration="10720000" />
       <workItem from="1473184006342" duration="1344000" />
       <workItem from="1473238265363" duration="735000" />
-      <workItem from="1473316991254" duration="5007000" />
+      <workItem from="1473316991254" duration="5342000" />
     </task>
     <task id="LOCAL-00001" summary="added gitignore">
       <created>1471000780663</created>
@@ -1025,11 +1020,17 @@
       <option name="project" value="LOCAL" />
       <updated>1473238390292</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="controller+template">
+      <created>1473322293236</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1473322293237</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="658032000" />
+    <option name="totallyTimeSpent" value="658367000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
