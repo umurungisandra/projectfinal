@@ -6,9 +6,11 @@
     <title>Exihibit And Fines</title>
 </head>
 <div class="col-lg-12" layout:fragment="header">
-    <h1 class="page-header">
+    <ol class="panel-heading">
+    <h3 class="page-header">
         Complaints
-    </h1>
+    </h3>
+    </ol>
     <ol class="breadcrumb">
         <li>
             <i class="fa fa-dashboard"></i> <a th:href="@{/complaints/list}">List complaints</a>
@@ -54,7 +56,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-xs-2 control-label" for="drivingLicense">drivingLicense</label>
+                <label class="col-xs-2 control-label" for="drivingLicense">Driving License</label>
                 <div class="col-xs-6">
                     <select id="drivingLicense" th:field="*{drivingLicense}" class="form-control">
                         <option value="" text="----Choose Contravention----"></option>
@@ -65,14 +67,14 @@
             </div>
 
             <div class="form-group">
-                <label class="col-xs-2 control-label" for="decision">decision</label>
+                <label class="col-xs-2 control-label" for="decision">Decision</label>
                 <div class="col-xs-6">
                     <input type="text" id="decision" class="form-control" th:field="*{decision}"/>
                     <div th:if="${#fields.hasErrors('decision')}" th:errors="*{decision}">Decision Error</div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-2 control-label" for="decisionDate">decisionDate</label>
+                <label class="col-xs-2 control-label" for="decisionDate">DecisionDate</label>
                 <div class="col-xs-6">
                     <input type="date" id="decisionDate" class="form-control" th:field="*{decisionDate}"/>
                     <div th:if="${#fields.hasErrors('decisionDate')}" th:errors="*{decisionDate}">DecisionDate Error</div>
@@ -80,14 +82,14 @@
             </div>
 
             <div class="form-group">
-                <label class="col-xs-2 control-label" for="complaintDate">complaintDate</label>
+                <label class="col-xs-2 control-label" for="complaintDate">ComplaintDate</label>
                 <div class="col-xs-6">
                     <input type="date" id="complaintDate" class="form-control" th:field="*{complaintDate}"/>
                     <div th:if="${#fields.hasErrors('complaintDate')}" th:errors="*{complaintDate}">ComplaintDate Error</div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-2 control-label" for="responsible">responsible</label>
+                <label class="col-xs-2 control-label" for="responsible">Responsible</label>
                 <div class="col-xs-6">
                     <input type="text" id="responsible" class="form-control" th:field="*{responsible}"/>
                     <div th:if="${#fields.hasErrors('responsible')}" th:errors="*{responsible}">Responsible Error</div>

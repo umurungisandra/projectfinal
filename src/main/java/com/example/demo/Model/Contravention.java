@@ -21,8 +21,7 @@ public class Contravention {
     private String drivingLicense;
 
     private Set<Offences> offenceName = new HashSet<Offences>(0);
-    @NotEmpty
-    private String policeOfficer;
+
     @NotEmpty
     private String plateNumber ;
     @NotEmpty
@@ -30,7 +29,6 @@ public class Contravention {
     private String province;
     private String district;
     private String sector;
-    private String numberMatricule;
     private  boolean payment;
     @NotNull
     private Users savedBy;
@@ -84,14 +82,7 @@ public class Contravention {
     public void setOffenceName(Set<Offences> offenceName) {
         this.offenceName = offenceName;
     }
-    @Column
-    public String getPoliceOfficer() {
-        return policeOfficer;
-    }
 
-    public void setPoliceOfficer(String policeOfficer) {
-        this.policeOfficer = policeOfficer;
-    }
 
     @ManyToOne(cascade = CascadeType.ALL,targetEntity = Users.class)
     public Users getSavedBy() {
@@ -162,13 +153,6 @@ public class Contravention {
     public void setPayment(boolean payment) {
         this.payment = payment;
     }
-@Column
-    public String getNumberMatricule() {
-        return numberMatricule;
-    }
 
-    public void setNumberMatricule(String numberMatricule) {
-        this.numberMatricule = numberMatricule;
-    }
 }
 

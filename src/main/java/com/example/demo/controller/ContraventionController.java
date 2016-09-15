@@ -62,6 +62,7 @@ public class ContraventionController {
 
             }
             contraventionService.saveOrUpdate(contravention);
+
             model.addAttribute("contravention", new Contravention());
             redirectAttrs.addFlashAttribute("messages", "success");
             model.addAttribute("offences", offencesService.getAll());
@@ -78,7 +79,7 @@ public class ContraventionController {
             CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
             Users users = userService.getByUsername(currentUser.getUsername()).get();
             contravention.setSavedBy(users);
-            //contravention.setSavedDate(new Date());
+            contravention.setSavedDate(new Date());
             contraventionService.saveOrUpdate(contravention);
             model.addAttribute("contravention", new Contravention());
             model.addAttribute("offences", offencesService.getAll());

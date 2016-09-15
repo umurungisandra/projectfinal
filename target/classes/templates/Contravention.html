@@ -6,17 +6,11 @@
     <title>Exihibit And Fines</title>
 </head>
 <div class="col-lg-12" layout:fragment="header">
-    <h1 class="page-header">
+    <ol class="panel-heading">
+    <h3 class="page-header">
         Contravention
-    </h1>
-    <ol class="breadcrumb">
-        <li>
-            <i class="fa fa-dashboard"></i> <a th:href="@{/contravention/list}">List Contravention</a>
-        </li>
-        <li class="active">
-            <i class="fa fa-edit"></i>
-        </li>
-    </ol>
+    </h3>
+</ol>
 </div>
 <div class="row" layout:fragment="middle">
     <div class="col-lg-12">
@@ -144,14 +138,36 @@
                                     </select>
                                 </div>
                             </div>
+                                <div style="visibility: hidden">
+
+                                    <div style="clear:both; display:block;height:10px;"></div>
+                                    <div class="form-group">
+
+
+                                        <div class="col-sm-6">
+
+
+                                            <select name="cell" id="ad_cell" class="adh filter form-control">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div style="clear:both; display:block;height:10px;"></div>
+                                    <div class="form-group">
+
+                                        <div class="col-sm-6">
+
+
+                                            <select name="village" id="ad_village" class="adh filter form-control">
+                                                <option value="">--Select--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 </div>
 
-                            <div style="clear:both; display:block;height:10px;"></div>
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <input type="checkbox" th:field="*{voided}" class="form-control"/>
-                                </div>
-                            </div>
+
 
                             <div style="clear:both; display:block;height:10px;"></div>
                             <input type="submit" class="btn btn-danger pull-right" value="Save"/>

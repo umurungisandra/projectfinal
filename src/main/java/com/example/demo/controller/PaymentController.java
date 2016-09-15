@@ -88,7 +88,7 @@ public class PaymentController {
 //        }
     }
 
-    @RequestMapping("/getbalance/{id}")
+    @RequestMapping("/api/getbalance/{id}")
     public PaymentDriver getAmountDue(@PathVariable("id") String drivingLicense) {
         int amount = getBalance(drivingLicense);
         return new PaymentDriver(drivingLicense, amount);

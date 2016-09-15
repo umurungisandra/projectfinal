@@ -72,7 +72,7 @@ function loadFile(addressValue, level) {
     var protoc=window.location.protocol;
     var url= protoc+"//"+hostLoc+"/locations/";
     var path = url;
-    alert(path);
+    //alert(path);
     //var path = ctx+"moduleResources/hiepatientsearch/";
 
     //var path = "";
