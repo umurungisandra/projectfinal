@@ -12,4 +12,5 @@ import java.util.Optional;
  */
 public interface ContraventionDao extends JpaRepository<Contravention, Integer> {
     List<Contravention> findBydrivingLicenseAndPayment(String drivingLicense, boolean payment);
+    List<Contravention> findBySavedDateBetween(java.sql.Date date1, java.sql.Date date);
 }

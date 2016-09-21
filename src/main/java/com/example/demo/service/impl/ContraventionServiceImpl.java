@@ -7,14 +7,15 @@ import com.example.demo.Model.Contravention;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by sandra on 5/20/2016.
  */
 @Service
 public class ContraventionServiceImpl implements ContraventionService {
+
     @Autowired
     ContraventionDao contraventionDao;
 
@@ -51,5 +52,10 @@ public class ContraventionServiceImpl implements ContraventionService {
     @Override
     public int countByContraventionAndComplaints(Contravention contravention, Complaints complaints) {
         return 0;
+    }
+
+    @Override
+    public List<Contravention> getByDateBetween(Date start, Date end) {
+        return contraventionDao.findBySavedDateBetween(new java.sql.Date(start.getTime()),new java.sql.Date(end.getTime()));
     }
 }

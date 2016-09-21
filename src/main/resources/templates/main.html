@@ -45,8 +45,6 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}"/>
     <!-- JS -->
     <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 
     <script type="text/javascript" th:src="@{/js/jquery.autocomplete.min.js}"></script>
@@ -148,7 +146,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="">Exhibits And Fines</a>
+            <a class="navbar-brand" th:href="@{/}">Exhibits And Fines</a>
         </div>
         <!-- Top Menu Items -->
         <ul class="nav navbar-right top-nav">
@@ -239,7 +237,26 @@
                     </ul>
 
                 </li>
+                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
+                    <a id="dop" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                        Punishement Policy <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#">Punishement Policy Management</a>
 
+                            <ul class="dropdown-menu">
+                                <li><a tabindex="-1" th:href="@{/operation}">Add Policy </a></li>
+                                <li><a tabindex="-1" th:href="@{/operation/list}">List of Punishement Policy</a></li>
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </li>
                 <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
                     <a id="dpunish" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
                         Punishment <span class="caret"></span>
@@ -253,7 +270,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/punishement}">Add Punishment </a></li>
-
+                                <li><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
                             </ul>
 
                         </li>
@@ -274,7 +291,7 @@
 
                             <ul class="dropdown-menu">
                                 <li><a tabindex="-1" th:href="@{/offences}">Add Offences </a></li>
-
+                                <li><a tabindex="-1" th:href="@{/offences/list}">List Offences</a></li>
                             </ul>
 
                         </li>
@@ -308,26 +325,7 @@
 
                     </ul>
                 </li>
-                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
-                    <a id="dop" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
-                        Punishement Policy <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                        <li><a href="#"></a></li>
-                        <li><a href="#"></a></li>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">Punishement Policy Management</a>
 
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/operation}">Add Policy </a></li>
-                                <li><a tabindex="-1" th:href="@{/operation/list}">List of Punishement Policy</a></li>
-                            </ul>
-
-                        </li>
-
-                    </ul>
-                </li>
 
                 <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')">
                     <a id="dcp" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
@@ -358,21 +356,7 @@
                         <li><a href="#"></a></li>
                         <li><a href="#"></a></li>
                         <li class="divider"></li>
-                        <li class="dropdown-submenu">
 
-                            <a tabindex="-1" href="#">Simple Report</a>
-                            <ul class="dropdown-menu">
-                                <li><a tabindex="-1" th:href="@{/offences/list}">List Offences</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown-submenu">
-
-                            <a tabindex="-1" href="#">Details Report</a>
-                            <ul class="dropdown-menu">
-                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')"><a tabindex="-1" th:href="@{/punishement/list}">List Punishment </a></li>
-                            </ul>
-                        </li>
                         <li class="dropdown-submenu">
 
                             <a tabindex="-1" href="#">Summary Report</a>
@@ -380,7 +364,7 @@
                                 <li>
                                 <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/list/payment}">List of Payment</a></li>
                                 <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')" ><a tabindex="-1" th:href="@{/contraventionComplaints}">Complaints And Driver </a></li>
-
+                                <li  sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/contravention/report}">Contravention Report</a></li>
                                 </li>
                             </ul>
 
@@ -571,13 +555,30 @@
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true
+
         });
         $('.date-picker1').datepicker({
             dateFormat: "yy-mm-dd",
             timeFormat: 'hh:mm:ss',
             changeMonth: true,
             changeYear: true,
-            showOtherMonths: true
+            showOtherMonths: true,
+            onSelect: function (selectedDate) {
+                $("#enddate").datepicker("option", "minDate", selectedDate);
+            }
+
+        });
+
+        $('.date-picker2').datepicker({
+            dateFormat: "yy-mm-dd",
+            timeFormat: 'hh:mm:ss',
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true,
+            onSelect: function (selectedDate) {
+                $("#startdate").datepicker("option", "maxDate", selectedDate);
+            }
+
         });
         $('.time-picker').timepicker({
             timeFormat: 'H : i ',
@@ -589,197 +590,197 @@
     // ]]>
     //    ------------------------------ PdfMake ------------------------
 
-    var pathArray = window.location.pathname.split('/');
-    var hostLoc = window.location.host;
-    var protoc = window.location.protocol;
-    var url = protoc + "//" + hostLoc ;+ "/api/getCount";
-//        alert(url);
-    var ContraventionComplaints;
-    $.ajax({
-        type: "GET",
-        url: url,
-        dataType: "text",
-        async: false,
-        success: function (data) {
-//           alert(data);
-            ContraventionComplaints = data; //or something similar
-        }
-    });
-    var contcomp = JSON.parse(ContraventionComplaints);
-    //    var len = custLin.length;
-    //    var custom = bal.plate;
-    //    var amount = bal.amount;
-    //    var totalAmount = amount + 10000;
-    //    var dt = bal.defaultersList;
-    var value = [];
-    obj = [];
-    var col = ['Name', 'Driving License', 'Offence Name', 'Responsible'];
-
-
-    var externalDataRetrievedFromServer = contcomp;
-    function buildTableBody(data, columns) {
-        var body = [];
-
-        body.push(columns);
-
-        data.forEach(function (row) {
-            var dataRow = [];
-
-
-
-            var contra=row.contravention;
-            var comp=row.complaints;
-
-            dataRow.push(contra.name.toString());
-            dataRow.push(contra.drivingLicense.toString());
-            dataRow.push(contra.offenceName.toString());
-            dataRow.push(comp.responsible.toString());
-
-
-
-            body.push(dataRow);
-        });
-
-        return body;
-    }
-    function table(data, columns) {
-        return {
-            width: 'auto',
-            table: {
-                headerRows: 1,
-                widths: [100, 'auto', 'auto', 'auto', 'auto', 100],
-                body: buildTableBody(data, columns)
-            }
-        };
-    }
-    document.getElementById("printPdf").onclick = function () {
-        pdfMake.createPdf(docDefinition).open();
-
-
-    };
-    //    var column = [];
-    //    column.push({text: 'Ticket Number', style: 'tableHeader'});
-    //    column.push({text: 'Plaque', style: 'tableHeader'});
-    //    column.push({text: 'Location', style: 'tableHeader'});
-    //    column.push({text: 'Date', style: 'tableHeader'});
-    //    column.push({text: 'time', style: 'tableHeader'});
-    //    column.push({text: 'Amount', style: 'tableHeader'});
-
-
-    var docDefinition = {
-                footer: {
-                    columns: [
-                        {width: '*', text: ''}, {
-                            width: 'auto',
-                            text: 'FOR MORE INFORMATION:Visit or call:0788 303 924\n' + 'PO BOX: 6304 Kigali-Rwanda',
-                            style: 'subheader',
-                            alignment: 'center'
-                        },
-
-
-                        {width: '*', text: ''},
-
-                    ],
-
-                },
-                content: [
-                    {
-                        columns: [
-                            {width: '*', text: ''},
-                            {
-                                width: 'auto',
-                                text: 'EXHIBIT AND FINES \n P.O. BOX: 6304 KIGALI\n www.police.gov.rw',
-                                style: 'subheader',
-                                alignment: 'center'
-                            },
-                            {width: '*', text: ''},
-
-
-                        ],
-                    },
-                    {
-                        columns: [
-                            {width: '*', text: ''},
-                            {
-                                width: 'auto',
-                                text: 'List of Driver and Person taking decision in copmlaint',
-                                style: 'header',
-                                decoration: 'underline'
-                            },
-                            {width: '*', text: ''},
-
-
-                        ],
-                    },
-
-                    {
-                        columns: [
-
-
-                            {width: '*', text: ''},
-                            table(externalDataRetrievedFromServer, col),
-                            {width: '*', text: ''},
-
-                        ]
-                    },
-                    {text: '\n', style: 'header'},
-
-
-
+//    var pathArray = window.location.pathname.split('/');
+//    var hostLoc = window.location.host;
+//    var protoc = window.location.protocol;
+//    var url = protoc + "//" + hostLoc ;+ "/api/getCount";
+////        alert(url);
+//    var ContraventionComplaints;
+//    $.ajax({
+//        type: "GET",
+//        url: url,
+//        dataType: "text",
+//        async: false,
+//        success: function (data) {
+////           alert(data);
+//            ContraventionComplaints = data; //or something similar
+//        }
+//    });
+//    var contcomp = JSON.parse(ContraventionComplaints);
+//    //    var len = custLin.length;
+//    //    var custom = bal.plate;
+//    //    var amount = bal.amount;
+//    //    var totalAmount = amount + 10000;
+//    //    var dt = bal.defaultersList;
+//    var value = [];
+//    obj = [];
+//    var col = ['Name', 'Driving License', 'Offence Name', 'Responsible'];
 //
-                    {text: '\n', style: 'header'},
-
-                ],
-                styles: {
-                    header: {
-                        fontSize: 18,
-                        bold: true,
-                        margin: [0, 0, 0, 10],
-                        color: 'blue'
-                    }
-                    ,
-                    subheader: {
-                        fontSize: 12,
-                        bold: true,
-                        margin: [0, 10, 0, 5],
-                        color: 'blue'
-                    }
-                    ,
-                    subheader1: {
-                        fontSize: 12,
-                        bold: true,
-                        margin: [0, 10, 0, 5],
-                        color: 'blue',
-                        align: 'right'
-                    }
-                    ,
-                    tableExample: {
-                        margin: [0, 5, 0, 15]
-                    }
-                    ,
-                    tableHeader: {
-                        bold: true,
-                        fontSize: 13,
-                        color: 'black'
-                    }
-                    ,
-                    tableContent: {
-                        bold: false,
-                        fontSize: 13,
-                        color: 'black',
-                        italic: true
-                    }
-                }
-                ,
-                defaultStyle: {
-                    // alignment: 'justify'
-                },
-                pageSize: 'LETTER',
-                pageMargins: [15, 15, 15, 150]
-
-
-            }
-            ;
+//
+//    var externalDataRetrievedFromServer = contcomp;
+//    function buildTableBody(data, columns) {
+//        var body = [];
+//
+//        body.push(columns);
+//
+//        data.forEach(function (row) {
+//            var dataRow = [];
+//
+//
+//
+//            var contra=row.contravention;
+//            var comp=row.complaints;
+//
+//            dataRow.push(contra.name.toString());
+//            dataRow.push(contra.drivingLicense.toString());
+//            dataRow.push(contra.offenceName.toString());
+//            dataRow.push(comp.responsible.toString());
+//
+//
+//
+//            body.push(dataRow);
+//        });
+//
+//        return body;
+//    }
+//    function table(data, columns) {
+//        return {
+//            width: 'auto',
+//            table: {
+//                headerRows: 1,
+//                widths: [100, 'auto', 'auto', 'auto', 'auto', 100],
+//                body: buildTableBody(data, columns)
+//            }
+//        };
+//    }
+//    document.getElementById("printPdf").onclick = function () {
+//        pdfMake.createPdf(docDefinition).open();
+//
+//
+//    };
+//    //    var column = [];
+//    //    column.push({text: 'Ticket Number', style: 'tableHeader'});
+//    //    column.push({text: 'Plaque', style: 'tableHeader'});
+//    //    column.push({text: 'Location', style: 'tableHeader'});
+//    //    column.push({text: 'Date', style: 'tableHeader'});
+//    //    column.push({text: 'time', style: 'tableHeader'});
+//    //    column.push({text: 'Amount', style: 'tableHeader'});
+//
+//
+//    var docDefinition = {
+//                footer: {
+//                    columns: [
+//                        {width: '*', text: ''}, {
+//                            width: 'auto',
+//                            text: 'FOR MORE INFORMATION:Visit or call:0788 303 924\n' + 'PO BOX: 6304 Kigali-Rwanda',
+//                            style: 'subheader',
+//                            alignment: 'center'
+//                        },
+//
+//
+//                        {width: '*', text: ''},
+//
+//                    ],
+//
+//                },
+//                content: [
+//                    {
+//                        columns: [
+//                            {width: '*', text: ''},
+//                            {
+//                                width: 'auto',
+//                                text: 'EXHIBIT AND FINES \n P.O. BOX: 6304 KIGALI\n www.police.gov.rw',
+//                                style: 'subheader',
+//                                alignment: 'center'
+//                            },
+//                            {width: '*', text: ''},
+//
+//
+//                        ],
+//                    },
+//                    {
+//                        columns: [
+//                            {width: '*', text: ''},
+//                            {
+//                                width: 'auto',
+//                                text: 'List of Driver and Person taking decision in copmlaint',
+//                                style: 'header',
+//                                decoration: 'underline'
+//                            },
+//                            {width: '*', text: ''},
+//
+//
+//                        ],
+//                    },
+//
+//                    {
+//                        columns: [
+//
+//
+//                            {width: '*', text: ''},
+//                            table(externalDataRetrievedFromServer, col),
+//                            {width: '*', text: ''},
+//
+//                        ]
+//                    },
+//                    {text: '\n', style: 'header'},
+//
+//
+//
+////
+//                    {text: '\n', style: 'header'},
+//
+//                ],
+//                styles: {
+//                    header: {
+//                        fontSize: 18,
+//                        bold: true,
+//                        margin: [0, 0, 0, 10],
+//                        color: 'blue'
+//                    }
+//                    ,
+//                    subheader: {
+//                        fontSize: 12,
+//                        bold: true,
+//                        margin: [0, 10, 0, 5],
+//                        color: 'blue'
+//                    }
+//                    ,
+//                    subheader1: {
+//                        fontSize: 12,
+//                        bold: true,
+//                        margin: [0, 10, 0, 5],
+//                        color: 'blue',
+//                        align: 'right'
+//                    }
+//                    ,
+//                    tableExample: {
+//                        margin: [0, 5, 0, 15]
+//                    }
+//                    ,
+//                    tableHeader: {
+//                        bold: true,
+//                        fontSize: 13,
+//                        color: 'black'
+//                    }
+//                    ,
+//                    tableContent: {
+//                        bold: false,
+//                        fontSize: 13,
+//                        color: 'black',
+//                        italic: true
+//                    }
+//                }
+//                ,
+//                defaultStyle: {
+//                    // alignment: 'justify'
+//                },
+//                pageSize: 'LETTER',
+//                pageMargins: [15, 15, 15, 150]
+//
+//
+//            }
+//            ;
 
     //    ---------------------------- End PDFMake ----------------
 </script>

@@ -25,6 +25,7 @@ import java.util.List;
  */
 @Controller
 public class CheckAmountDueController {
+
     @Autowired
     ContraventionService contraventionService;
 

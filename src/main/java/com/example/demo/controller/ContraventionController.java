@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -44,7 +45,7 @@ public class ContraventionController {
     }
 
     @RequestMapping(value = "/contravention/save", method = RequestMethod.POST)
-    public String saveContravention(@Valid @ModelAttribute("contravention") Contravention contravention, BindingResult bindingResult, Authentication authentication, Model model,RedirectAttributes redirectAttrs) {
+    public String saveContravention(@Valid @ModelAttribute("contravention") Contravention contravention, BindingResult bindingResult, Authentication authentication, Model model, RedirectAttributes redirectAttrs) {
 
         if (contravention.getDrivingLicense() != null) {
             if (!checkDriverExist(contravention.getDrivingLicense())) {
@@ -92,6 +93,37 @@ public class ContraventionController {
             return "/contravention";
         }
     }
+
+    //contravention report  parameters
+    @RequestMapping(value = {"/contravention/report"}, method = RequestMethod.GET)
+    public String reportPage(Model model, HttpServletRequest request) {
+        return "contraventionreport";
+    }
+
+    @RequestMapping(value = {"/contravention/report"}, method = RequestMethod.POST)
+    public String listPage(Model model, HttpServletRequest request) {
+
+
+        try {
+
+            String dateString = request.getParameter("startdate");
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date startdate = format.parse(dateString);
+
+            String enddateString = request.getParameter("enddate");
+            Date enddate = format.parse(enddateString);
+            System.out.println("From " + dateString + " To " + enddateString + " Before ");
+            List<Contravention> dataEntryReports = contraventionService.getByDateBetween(startdate, enddate);
+
+            System.out.println("From " + dateString + " To " + enddateString + " Found " + dataEntryReports.size());
+
+            model.addAttribute("contravention", dataEntryReports);
+            return "Contraventionlist";
+        } catch (ParseException e) {
+            return "redirect:/contraventionreport";
+        }
+    }
+
     @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
     @RequestMapping(value = "/contravention/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
@@ -99,13 +131,6 @@ public class ContraventionController {
 
         return "contraventionlist";
     }
-
-    //@RequestMapping(value = "/contravention/list/payment", method = RequestMethod.GET)
-    //public String getListPagee(Model model) {
-        //model.addAttribute("contravention", contraventionService.getAll());
-
-        //return "contraventionlistpayment";
-    //}
 
 
     private Driver getDriverByDrivingLicense(String drivingLicense) {
@@ -141,6 +166,7 @@ public class ContraventionController {
             return false;
         }
     }
+
     @PreAuthorize("hasAnyAuthority('POLICE_OFFICER','CHIEF_OF_STATION','CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/getpoint/{id}", method = RequestMethod.GET)
     public String getPoint(@PathVariable("id") String drivingLicense, Model model) {
@@ -152,12 +178,14 @@ public class ContraventionController {
             if (driverPoint.isPresent()) {
                 driverPoint1 = driverPoint.get();
             }
-            model.addAttribute("driverPoint",driverPoint1);
+            model.addAttribute("driverPoint", driverPoint1);
         } catch (NullPointerException e) {
 
         }
         return "chekpoint";
-    }@RequestMapping(value = "/getpoint", method = RequestMethod.GET)
+    }
+
+    @RequestMapping(value = "/getpoint", method = RequestMethod.GET)
     public String getCheckPoint() {
 
         return "chekpoint";

@@ -62,12 +62,13 @@ public class OperationController {
         }
 
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','DIRECTEUR_EXHIBITS_AND_FINES')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/operation/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("operation", operationService.getAll());
         return "operationList";
     }
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
     @RequestMapping(value = "/operation/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idOperation = Integer.parseInt(id);
