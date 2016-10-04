@@ -15,9 +15,9 @@ import java.util.Set;
 @Table(name="CONTRAVENTION")
 public class Contravention {
     private Integer id;
-
+    @NotEmpty
     private String nameDriver;
-
+    @NotEmpty
     private String drivingLicense;
 
     private Set<Offences> offenceName = new HashSet<Offences>(0);
@@ -26,8 +26,11 @@ public class Contravention {
     private String plateNumber ;
     @NotEmpty
     private  String descriptionOffence ;
+    @NotEmpty
     private String province;
+    @NotEmpty
     private String district;
+    @NotEmpty
     private String sector;
     private  boolean payment;
     @NotNull

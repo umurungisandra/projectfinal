@@ -1,11 +1,13 @@
 package com.example.demo.Model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,25 +19,28 @@ import java.util.Set;
 @Table(name="USERS")
 public class Users {
     private Integer id;
-
+    @NotEmpty
     private String firstName;
 
     private String lastName;
+    @NotEmpty
     private  String numberMatricule;
+    @NotEmpty
     private String province ;
-
+    @NotEmpty
     private String district;
-
+    @NotEmpty
     private String sector;
-
+    @NotEmpty
     private String cell;
-
+    @NotEmpty
     private String village;
-
-    private Integer telphone;
-
+    @NotEmpty
+    @Pattern(regexp = "^\\+?[250]{3}-([7]{1})-([0-9]{8}|[0-9]-[0-9][0-9]{2}-[0-9]{2}-[0-9]{2}|[0-9]{3}-[0-9]{2}-[0-9]-[0-9])$")
+    private String telphone;
+    @NotEmpty
     private String username;
-
+    @NotEmpty
     private String password;
 
     private Roles role;
@@ -118,13 +123,12 @@ public class Users {
     public void setVillage(String village) {
         this.village = village;
     }
-
-    @Column(name = "telphone")
-    public Integer getTelphone() {
+@Column
+    public String getTelphone() {
         return telphone;
     }
 
-    public void setTelphone(Integer telphone) {
+    public void setTelphone(String telphone) {
         this.telphone = telphone;
     }
 

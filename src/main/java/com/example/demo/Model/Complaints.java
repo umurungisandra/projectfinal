@@ -24,7 +24,7 @@ public class Complaints {
     private Date decisionDate;
     @NotNull
     private Date complaintDate;
-    @NotNull
+    @NotEmpty
     private String responsible;
     private Users savedBy;
     private Date savedDate;

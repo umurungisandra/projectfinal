@@ -1,8 +1,12 @@
 package com.example.demo.Model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -13,7 +17,10 @@ import java.util.Date;
 @Table
 public class PunishmentPolicy {
     private Integer id;
+    @NotNull
+    @Min(5) @Max(25)
     private int setMark;
+    @NotNull
     private int setPenalties;
     private Users savedBy;
     private Date savedDate;

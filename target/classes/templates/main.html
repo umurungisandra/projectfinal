@@ -339,8 +339,8 @@
                             <a tabindex="-1" href="#">Complaints Management</a>
 
                             <ul class="dropdown-menu">
-                                <li ><a tabindex="-1" th:href="@{/complaints}">Add Complaint </a></li>
-                                <li><a tabindex="-1" th:href="@{/complaints/list}">List Complaint</a></li>
+                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_STATION')" ><a tabindex="-1" th:href="@{/complaints}">Add Complaint </a></li>
+                                <li sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')"><a tabindex="-1" th:href="@{/complaints/list}">List Complaint</a></li>
                             </ul>
 
                         </li>

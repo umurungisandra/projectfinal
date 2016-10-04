@@ -1,5 +1,6 @@
 package com.example.demo.Model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -15,9 +16,11 @@ public class Punishment {
     private Integer id;
     @NotNull
     private PunishmentPolicy operation;
-    @NotNull
+    @NotEmpty
     private String description;
+    @NotNull
     private Users savedBy;
+    @NotNull
     private Date savedDate;
     private boolean voided;
     @Id
