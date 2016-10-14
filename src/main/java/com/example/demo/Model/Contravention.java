@@ -35,7 +35,7 @@ public class Contravention {
     private  boolean payment;
     @NotNull
     private Users savedBy;
-    private Date datecontravention;
+    //private Date datecontravention;
     private Date savedDate;
 
     private boolean voided;
@@ -158,12 +158,12 @@ public class Contravention {
         this.payment = payment;
     }
 
-    public Date getDatecontravention() {
-        return datecontravention;
-    }
+   // public Date getDatecontravention() {
+       // return datecontravention;
+    //}
 
-    public void setDatecontravention(Date datecontravention) {
-        this.datecontravention = datecontravention;
-    }
+   // public void setDatecontravention(Date datecontravention) {
+       // this.datecontravention = datecontravention;
+    //}
 }
 

@@ -39,7 +39,7 @@ public class ComplaintsController {
         binder.registerCustomEditor(       Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/complaints", method = RequestMethod.GET)
     public String getComplaintsPage(Model model) {
         model.addAttribute("complaints", new Complaints());
@@ -64,17 +64,18 @@ public class ComplaintsController {
         }
 
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/complaints/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("complaints", complaintsService.getAll());
         return "complaintslist";
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/complaints/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idComplaints = Integer.parseInt(id);
         Complaints complaints = complaintsService.getById(idComplaints);
+        model.addAttribute("contravention",contraventionService.getAll());
         model.addAttribute("complaints", complaints);
 
         return "complaintsEdit";

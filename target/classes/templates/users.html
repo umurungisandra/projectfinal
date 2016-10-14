@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorator="main">
 <head>
     <title>Exihibit And Fines</title>
 </head>
 <div class="col-lg-12" layout:fragment="header">
     <ol class="panel-heading">
-    <h3 class="page-header">
-        User
-    </h3>
-        </ol>
+        <h3 class="page-header">
+            User
+        </h3>
+    </ol>
     <ol class="breadcrumb">
         <li>
             <i class="fa fa-dashboard"></i> <a th:href="@{/users/list}">List user</a>
@@ -24,7 +24,7 @@
     <div class="col-lg-12">
         <div class="alert alert-info alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <i class="fa fa-info-circle"></i> <strong></strong>  <a
+            <i class="fa fa-info-circle"></i> <strong></strong> <a
                 href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link"></a>
         </div>
     </div>
@@ -56,7 +56,9 @@
                                 <label class="col-xs-2 control-label" for="firstName">First Name</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="firstName" class="form-control" th:field="*{firstName}"/>
-                                    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName Error</div>
+                                    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName
+                                        Error
+                                    </div>
                                 </div>
                             </div>
 
@@ -65,78 +67,138 @@
                                 <label class="col-xs-2 control-label" for="lastName">Last Name</label>
                                 <div class="col-xs-6">
                                     <input type="text" id="lastName" class="form-control" th:field="*{lastName}"/>
-                                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName Error</div>
+                                    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">LastName
+                                        Error
+                                    </div>
                                 </div>
                             </div>
                             <div style="clear:both; display:block;height:10px;"></div>
                             <div class="form-group">
                                 <label class="col-xs-2 control-label" for="numberMatricule">Number Matricule</label>
                                 <div class="col-xs-6">
-                                    <input type="text" id="numberMatricule" class="form-control" th:field="*{numberMatricule}"/>
-                                    <div th:if="${#fields.hasErrors('numberMatricule')}" th:errors="*{numberMatricule}">LastName Error</div>
+                                    <input type="text" id="numberMatricule" class="form-control"
+                                           th:field="*{numberMatricule}"/>
+                                    <div th:if="${#fields.hasErrors('numberMatricule')}" th:errors="*{numberMatricule}">
+                                        LastName Error
+                                    </div>
                                 </div>
                             </div>
                             <div style="clear:both; display:block;height:10px;"></div>
-                            <label class="col-xs-2 control-label" >address</label>
-
                             <div class="form-group">
+                                <label class="col-xs-2 control-label" for="telphone">Telephone</label>
                                 <div class="col-xs-6">
+                                    <input type="text" id="telphone" class="form-control" th:field="*{telphone}"/>
+                                    <div th:if="${#fields.hasErrors('telphone')}" th:errors="*{telphone}">Telphone
+                                        Error
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both; display:block;height:10px;"></div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="username">UserName</label>
+                                <div class="col-xs-6">
+                                    <input type="text" id="username" class="form-control" th:field="*{username}"/>
+                                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username
+                                        Error
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="clear:both; display:block;height:10px;"></div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="password">Password</label>
+                                <div class="col-xs-6">
+                                    <input type="password" id="password" class="form-control" th:field="*{password}"/>
+                                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password
+                                        Error
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear:both; display:block;height:10px;"></div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label" for="role">Roles</label>
+                                <div class="col-xs-6">
+                                    <select id="role" th:field="*{role}" class="form-control">
+                                        <option value="" text="----Choose Roles----"></option>
+                                        <option th:each="t : ${T(com.example.demo.Model.Roles).values()}"
+                                                th:value="${t}" th:text="${t}"></option>
+                                        <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Name Error</div>
+                                    </select>
+                                </div>
+                            </div>
+                            <div sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','DIRECTEUR_EXHIBITS_AND_FINES','ADMIN')">
+                                <div style="height:30px; line-height:30px; text-align:center;">
+
+                                </div>
+                                     <label class="col-xs-2 control-label">Work of Place</label>
+                            <div style="clear:both; display:block;height:10px;"></div>
+                                <div class="form-group">
+
                                     <label for="province" class="col-sm-2 control-label">Province</label>
                                     <div class="col-sm-6">
-                                            <input type="hidden" class="form-control" id="province" name="province" placeholder="Province" value="" th:field="*{province}" />
+                                        <input type="hidden" class="form-control" id="province" name="province"
+                                               placeholder="Province" value="" th:field="*{province}"/>
 
-                                            <select class="form-control required adh filter" id="ad_province" name="ad_province">
-                                                <option value="" selected="selected">--Select--</option>
-                                                <option value="Kigali">Kigali City</option>
-                                                <option value="Eastern Province">Eastern Province</option>
-                                                <option value="Western Province">Western Province</option>
-                                                <option value="Northern Province">Northern Province</option>
-                                                <option value="Southern Province">Southern Province</option>
+                                        <select class="form-control required adh filter" id="ad_province"
+                                                name="ad_province">
+                                            <option value="" selected="selected">--Select--</option>
+                                            <option value="Kigali">Kigali City</option>
+                                            <option value="Eastern Province">Eastern Province</option>
+                                            <option value="Western Province">Western Province</option>
+                                            <option value="Northern Province">Northern Province</option>
+                                            <option value="Southern Province">Southern Province</option>
 
-                                            </select>
-                                        </div>
+                                        </select>
                                     </div>
+                                </div>
                                 <div style="clear:both; display:block;height:10px;"></div>
-                                    <div class="form-group">
-                                        <label for="district" class="col-sm-2 control-label">District</label>
+                                <div class="form-group">
+                                    <label for="district" class="col-sm-2 control-label">District</label>
 
-                                        <div class="col-sm-6">
-                                            <input type="hidden" class="form-control" id="district" name="district" placeholder="District" value="" th:field="*{district}" />
+                                    <div class="col-sm-6">
+                                        <input type="hidden" class="form-control" id="district" name="district"
+                                               placeholder="District" value="" th:field="*{district}"/>
 
-                                            <select name="dist" id="ad_district" class="adh filter form-control">
-                                                <option value="">--Select--</option>
-                                            </select>
-                                        </div>
+                                        <select name="dist" id="ad_district" class="adh filter form-control">
+                                            <option value="">--Select--</option>
+                                        </select>
                                     </div>
-                                <div style="clear:both; display:block;height:10px;"></div>
+
+                                    <div sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
+                                    <div style="clear:both; display:block;height:10px;"></div>
                                     <div class="form-group">
                                         <label for="sector" class="col-sm-2 control-label">Sector</label>
 
                                         <div class="col-sm-6">
-                                            <input type="hidden" class="form-control" id="sector" name="sector" placeholder="Sector" value="" th:field="*{sector}" />
+                                            <input type="hidden" class="form-control" id="sector" name="sector"
+                                                   placeholder="Sector" value="" th:field="*{sector}"/>
 
                                             <select name="sector" id="ad_sector" class="adh filter form-control">
                                                 <option value="">--Select--</option>
                                             </select>
                                         </div>
                                     </div>
-                                <div style="clear:both; display:block;height:10px;"></div>
-                                    <div class="form-group">
+                                    </div>
+                                    <div style="clear:both; display:block;height:10px;"></div>
+                                    <div class="form-group" style="visibility:hidden">
                                         <label for="cellbox" class="col-sm-2 control-label">Cell</label>
 
                                         <div class="col-sm-6">
-                                            <input type="hidden" class="form-control" id="cellbox" name="cell" placeholder="Cell" value="" th:field="*{cell}" />
+                                            <input type="hidden" class="form-control" id="cellbox" name="cell"
+                                                   placeholder="Cell" value="" th:field="*{cell}"/>
 
                                             <select name="cell" id="ad_cell" class="adh filter form-control">
                                                 <option value="">--Select--</option>
                                             </select>
                                         </div>
                                     </div>
-                                <div style="clear:both; display:block;height:10px;"></div>
-                                    <div class="form-group">
-                                        <label for="villagebox" class="col-sm-2 control-label">Village</label>
-                                        <div class="col-sm-6">
-                                            <input type="hidden" class="form-control" id="villagebox" name="village" placeholder="Village" value="" th:field="*{village}" />
+                                    <div style="clear:both; display:block;height:10px;"></div>
+                                    <div class="form-group" style="visibility:hidden">
+                                        <label type="hidden" for="villagebox"
+                                               class="col-sm-2 control-label">Village</label>
+                                        <div class="form-group" style="visibility:hidden">
+                                            <input type="hidden" class="form-control" id="villagebox" name="village"
+                                                   placeholder="Village" value="" th:field="*{village}"/>
 
                                             <select name="village" id="ad_village" class="adh filter form-control">
                                                 <option value="">--Select--</option>
@@ -146,46 +208,18 @@
 
                                 </div>
 
-
-
-
-                            <div style="clear:both; display:block;height:10px;"></div>
-                            <div class="form-group">
-                                <label class="col-xs-2 control-label" for="telphone">Telephone</label>
-                                <div class="col-xs-6">
-                                    <input type="text" id="telphone" class="form-control" th:field="*{telphone}"/>
-                                    <div th:if="${#fields.hasErrors('telphone')}" th:errors="*{telphone}">Telphone Error</div>
-                                </div>
                             </div>
 
-
-
-                            <div style="clear:both; display:block;height:10px;"></div>
-                            <div class="form-group">
-                                <label class="col-xs-2 control-label" for="username">UserName</label>
-                                <div class="col-xs-6">
-                                    <input type="text" id="username" class="form-control" th:field="*{username}"/>
-                                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</div>
-                                </div>
-                            </div>
-
-                            <div style="clear:both; display:block;height:10px;"></div>
-                            <div class="form-group">
-                                <label class="col-xs-2 control-label" for="password">Password</label>
-                                <div class="col-xs-6">
-                                    <input type="password" id="password" class="form-control" th:field="*{password}"/>
-                                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</div>
-                                </div>
-                            </div>
-                            <div style="clear:both; display:block;height:10px;"></div>
-                            <div class="form-group">
-                                <label class="col-xs-2 control-label" for="role">Roles</label>
-                                <div class="col-xs-6">
-                                    <select id="role" th:field="*{role}" class="form-control">
-                                        <option value="" text="----Choose Roles----"></option>
-                                        <option th:each="t : ${T(com.example.demo.Model.Roles).values()}" th:value="${t}"  th:text="${t}"></option>
-                                        <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}">Name Error</div>
-                                    </select>
+                            <div sec:authorize="hasAnyAuthority('CHIEF_OF_STATION')">
+                                <div style="clear:both; display:block;height:10px;"></div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label" for="post">Post</label>
+                                    <div class="col-xs-6">
+                                        <input type="text" id="post" class="form-control" th:field="*{post}"/>
+                                        <div th:if="${#fields.hasErrors('post')}" th:errors="*{post}">post
+                                            Error
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div style="clear:both; display:block;height:10px;"></div>
@@ -196,13 +230,14 @@
                             </div>
                             <div style="clear:both; display:block;height:10px;"></div>
                             <input type="submit" class="btn btn-danger pull-right" value="Save"/>
-                        </form>
-                    </div>
 
+                    </form>
                 </div>
+
             </div>
         </div>
-
     </div>
+
+</div>
 </div>
 </html>

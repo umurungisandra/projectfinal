@@ -37,7 +37,7 @@ public class UsersController {
         binder.registerCustomEditor(       Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String getUserPage(Model model) {
         model.addAttribute("user", new Users());
@@ -59,12 +59,12 @@ public class UsersController {
                 String sector = users.getSector();
                 sector = sector.split(",")[0];
                 users.setSector(sector);
-                String cell = users.getCell();
-                cell = cell.split(",")[0];
-                users.setCell(cell);
-                String village = users.getVillage();
-                village = village.split(",")[0];
-                users.setVillage(village);
+               // String cell = users.getCell();
+                //cell = cell.split(",")[0];
+                //users.setCell(cell);
+                //String village = users.getVillage();
+               // village = village.split(",")[0];
+               // users.setVillage(village);
                 userService.saveOrUpdate(users);
                 model.addAttribute("user", new Users());
                 redirectAttrs.addFlashAttribute("messages", "success");
@@ -87,13 +87,13 @@ public class UsersController {
     }
 
   }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/users/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("users", userService.getAll());
         return "userlist";
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/users/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idUser = Integer.parseInt(id);

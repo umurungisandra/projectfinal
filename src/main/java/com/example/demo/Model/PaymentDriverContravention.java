@@ -7,14 +7,22 @@ public class PaymentDriverContravention {
     private String contravention;
     private String name;
     private String drivingLicense;
+    private String province;
+    private String district;
+    private String sector;
+
     private  int amountDue;
     private Boolean Payment;
 
-    public PaymentDriverContravention(String contravention, String name, int amountDue, String drivingLicense, Boolean payment) {
+    public PaymentDriverContravention(String contravention, String name, int amountDue, String drivingLicense,String province,String district,String sector, Boolean payment) {
         this.contravention = contravention;
         this.name = name;
         this.amountDue = amountDue;
         this.drivingLicense = drivingLicense;
+        this.province=province;
+        this.district=district;
+        this.sector=sector;
+
         Payment = payment;
     }
 
@@ -59,5 +67,29 @@ public class PaymentDriverContravention {
 
     public void setPayment(Boolean payment) {
         Payment = payment;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
     }
 }

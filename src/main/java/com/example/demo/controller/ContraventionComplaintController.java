@@ -24,7 +24,7 @@ public class ContraventionComplaintController {
     @Autowired
     ComplaintsService complaintsService;
     private Object contraventionComplaints;
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/contraventionComplaints", method = RequestMethod.GET)
     public String getContraventionComplaintsPage(Model model) {
 

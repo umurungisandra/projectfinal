@@ -37,8 +37,9 @@
                     <th>PlateNumber</th>
                     <th>DescriptionOffence</th>
                     <th>Payment</th>
-                    <!--<th>Amount due</th>-->
-                    <!--<th>Point deducted</th>-->
+                    <th>Province</th>
+                    <th>District</th>
+                    <th>Sector</th>
                     <th>SavedBy</th>
                     <th>Saved Date</th>
 
@@ -57,6 +58,10 @@
                         <td th:text="${cmt.plateNumber}">plateNumber</td>
                         <td th:text="${cmt.descriptionOffence}">descriptionOffence</td>
                         <td th:text="${cmt.payment}">payment</td>
+                        <td th:text="${cmt.province}">payment</td>
+                        <td th:text="${cmt.district}">payment</td>
+                        <td th:text="${cmt.sector}">payment</td>
+
                         <td th:text="${cmt.savedBy.username}">SavedBy</td>
                         <!--<td th:text="${cmt.offenceName.punishments.operation.setPenalties}">Amount</td>-->
                         <!--<td th:text="${cmt.offenceName.punishments.operation.setMark}">Point</td>-->

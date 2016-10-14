@@ -35,6 +35,8 @@ public class ContraventionController {
     OffencesService offencesService;
     @Autowired
     DriverPointService driverPointService;
+    @Autowired
+    DriverService driverService;
 
     @PreAuthorize("hasAnyAuthority('POLICE_OFFICER')")
     @RequestMapping(value = "/contravention", method = RequestMethod.GET)
@@ -61,15 +63,16 @@ public class ContraventionController {
             contravention.setSavedDate(new Date());
             if (soustractPoint(getDriverByDrivingLicense(contravention.getDrivingLicense()), new ArrayList<>(contravention.getOffenceName()))) {
 
+                redirectAttrs.addFlashAttribute("messages", "success");
+            } else {
+                redirectAttrs.addFlashAttribute("messages", "retain");
             }
             contraventionService.saveOrUpdate(contravention);
 
             model.addAttribute("contravention", new Contravention());
-            redirectAttrs.addFlashAttribute("messages", "success");
             model.addAttribute("offences", offencesService.getAll());
-
             return "redirect:/contravention";
-
+//check plaque number
         } else if (contravention.getPlateNumber() != null) {
             if (!checkVehicleExist(contravention.getPlateNumber())) {
                 System.out.println(bindingResult.getFieldError().getField());
@@ -81,6 +84,9 @@ public class ContraventionController {
             Users users = userService.getByUsername(currentUser.getUsername()).get();
             contravention.setSavedBy(users);
             contravention.setSavedDate(new Date());
+            String sector = contravention.getSector();
+            sector = sector.split(",")[0];
+            contravention.setSector(sector);
             contraventionService.saveOrUpdate(contravention);
             model.addAttribute("contravention", new Contravention());
             model.addAttribute("offences", offencesService.getAll());
@@ -95,6 +101,7 @@ public class ContraventionController {
     }
 
     //contravention report  parameters
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = {"/contravention/report"}, method = RequestMethod.GET)
     public String reportPage(Model model, HttpServletRequest request) {
         return "contraventionreport";
@@ -124,7 +131,7 @@ public class ContraventionController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/contravention/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("contravention", contraventionService.getAll());
@@ -146,8 +153,18 @@ public class ContraventionController {
         RestTemplate restTemplate = new RestTemplate();
         try {
             driver = restTemplate.getForObject("http://localhost:9090/driver/id/" + drivingLicense, Driver.class);
+            System.out.println(driver.getFirstName()+" "+driver.getLastName());
             checkNotNull(driver);
-
+            Optional<Driver> driver1 = driverService.getBydrivingLisence(drivingLicense);
+            if (!driver1.isPresent()) {
+                //driverService.saveOrUpdate(driver);
+                DriverPoint driverPoint=new DriverPoint();
+                driverPoint.setDriverPoint(100);
+                driverPoint.setFirstName(driver.getFirstName());
+                driverPoint.setLastName(driver.getLastName());
+                driverPoint.setDriver(driver);
+                driverPointService.saveOrUpdate(driverPoint);
+            }
             return true;
         } catch (NullPointerException ex) {
             return false;
@@ -167,7 +184,7 @@ public class ContraventionController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('POLICE_OFFICER','CHIEF_OF_STATION','CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('POLICE_OFFICER','CHIEF_OF_STATION','CHIEF_OF_DISTRICT','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/getpoint/{id}", method = RequestMethod.GET)
     public String getPoint(@PathVariable("id") String drivingLicense, Model model) {
         Optional<DriverPoint> driverPoint = driverPointService.getBydrivingLisence(drivingLicense);
@@ -193,8 +210,10 @@ public class ContraventionController {
 
     private boolean soustractPoint(Driver driver, List<Offences> offences) {
         Optional<DriverPoint> driverPoint = driverPointService.getBydrivingLisence(driver.getDrivingLisence());
+
         DriverPoint driverPoint1 = new DriverPoint();
         try {
+
             checkNotNull(driverPoint);
 
             if (driverPoint.isPresent()) {
@@ -207,7 +226,7 @@ public class ContraventionController {
 
                 driverPoint1.setDriverPoint(point);
                 driverPointService.saveOrUpdate(driverPoint1);
-                return true;
+                return (point > 30);
             } else {
                 driverPoint1.setDriverPoint(100);
                 driverPoint1.setDriver(driver);

@@ -12,8 +12,8 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Driver {
     private Integer id;
-    private String firstname;
-    private  String  lastname;
+    private String firstName;
+    private  String lastName;
     private String sex;
     private Date dateOfBirth;
     private Date expiry;
@@ -29,20 +29,20 @@ public class Driver {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getDrivingLisence() {

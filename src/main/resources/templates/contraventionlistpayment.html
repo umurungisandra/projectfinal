@@ -39,9 +39,15 @@
                     <th>Name</th>
                     <th>Amount</th>
                     <th>DrivingLicense</th>
+                    <th>Province</th>
+                    <th>District</th>
+                    <th>Sector</th>
                     <th>Payment</th>
                     </thead>
                     <tfoot>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -52,6 +58,10 @@
                         <td th:text="${pdc.name}"></td>
                         <td th:text="${pdc.amountDue}"></td>
                         <td th:text="${pdc.drivingLicense}"></td>
+                        <td th:text="${pdc.province}">payment</td>
+                        <td th:text="${pdc.district}">payment</td>
+                        <td th:text="${pdc.sector}">payment</td>
+
                         <td th:text="${pdc.payment}"></td>
                     </tr>
                     </tbody>

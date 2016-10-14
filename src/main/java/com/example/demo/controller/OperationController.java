@@ -34,7 +34,7 @@ public class OperationController {
         binder.registerCustomEditor(       Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/operation",method = RequestMethod.GET)
     public String getOperationPage(Model model) {
         model.addAttribute("operation", new PunishmentPolicy());
@@ -62,13 +62,13 @@ public class OperationController {
         }
 
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/operation/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("operation", operationService.getAll());
         return "operationList";
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/operation/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idOperation = Integer.parseInt(id);

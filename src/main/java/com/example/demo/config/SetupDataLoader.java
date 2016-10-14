@@ -49,10 +49,11 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         user.setLastName("lastName");
         user.setDistrict("district");
         user.setSector("sector");
-        user.setCell("cell");
-        user.setVillage("village");
+        //user.setCell("cell");
+        //user.setVillage("village");
         user.setNumberMatricule("numbermatricule");
         user.setProvince("province");
+        user.setPost("post");
         user.setEnabled(true);
         user.setRole(adminRole);
         userService.saveOrUpdate(user);

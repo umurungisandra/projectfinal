@@ -25,7 +25,7 @@ import java.util.List;
 public class PaymentDriverContraventionController {
     @Autowired
     ContraventionService contraventionService;
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/contravention/list/payment", method = RequestMethod.GET)
     public String getListPagee( Model model) {
         List<Contravention> contraventions = contraventionService.getAll();
@@ -40,7 +40,7 @@ public class PaymentDriverContraventionController {
                 amnt += offences.getPunishments().getOperation().getSetPenalties();
 
             }
-            PaymentDriverContravention p = new PaymentDriverContravention(contr.getId().toString(), contr.getNameDriver(), amnt, contr.getDrivingLicense(), contr.isPayment());
+            PaymentDriverContravention p = new PaymentDriverContravention(contr.getId().toString(), contr.getNameDriver(), amnt, contr.getDrivingLicense(),contr.getProvince(),contr.getDistrict(),contr.getSector(), contr.isPayment());
             paymentDriverContravention.add(p);
         }
 System.out.println(paymentDriverContravention.size()+"-------------------------");

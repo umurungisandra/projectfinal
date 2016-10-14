@@ -51,12 +51,14 @@ public class DriverPointServiceImp implements DriverPointService{
 
     @Override
     public Optional<DriverPoint> getBydrivingLisence(String drivingLisence) {
-        List<DriverPoint> driverPoints=getAll();
-        for(DriverPoint d:driverPoints){
-            if(d.getDriver().getDrivingLisence().equalsIgnoreCase(drivingLisence)){
-                return Optional.of(d);
+
+            List<DriverPoint> driverPoints = getAll();
+            for (DriverPoint d : driverPoints) {
+                if (d.getDriver().getDrivingLisence().equalsIgnoreCase(drivingLisence)) {
+                    return Optional.of(d);
+                }
             }
-        }
+
         return null;
     }
 }

@@ -37,7 +37,7 @@ public class OffencesController   {
     @Autowired
     UserService userService;
 
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/offences", method = RequestMethod.GET)
     public String getOffencesPage(Model model) {
         model.addAttribute("offences", new Offences());
@@ -65,14 +65,14 @@ public class OffencesController   {
             return "redirect:/offences";
         }
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/offences/list", method = RequestMethod.GET)
     public String getListPage(Model model) {
         model.addAttribute("offences", offencesService.getAll());
         return "offencesList";
     }
 
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/offences/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idOffences = Integer.parseInt(id);

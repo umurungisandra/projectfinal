@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.Model.*;
 import com.example.demo.service.ContraventionService;
+import com.example.demo.service.DriverService;
 import com.example.demo.service.PaymentService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class PaymentController {
     UserService userService;
     @Autowired
     ContraventionService contraventionService;
+    @Autowired
+    DriverService driverService;
 
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
     public String getUserPage(Model model) {
@@ -91,7 +94,8 @@ public class PaymentController {
     @RequestMapping("/api/getbalance/{id}")
     public PaymentDriver getAmountDue(@PathVariable("id") String drivingLicense) {
         int amount = getBalance(drivingLicense);
-        return new PaymentDriver(drivingLicense, amount);
+        Driver driver=driverService.getBydrivingLisence(drivingLicense).get();
+        return new PaymentDriver(drivingLicense,driver, amount);
     }
 
     private int getBalance(String drivingLicense) {

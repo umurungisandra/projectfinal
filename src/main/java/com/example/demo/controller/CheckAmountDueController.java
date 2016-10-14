@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.Model.Contravention;
-import com.example.demo.Model.Offences;
-import com.example.demo.Model.PaymentDriver;
-import com.example.demo.Model.Punishment;
+import com.example.demo.Model.*;
 import com.example.demo.service.ContraventionService;
+import com.example.demo.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -12,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -19,6 +18,9 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by sandra on 8/2/2016.
@@ -28,13 +30,17 @@ public class CheckAmountDueController {
 
     @Autowired
     ContraventionService contraventionService;
+    @Autowired
+    DriverService driverService;
 
 
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','CHIEF_OF_STATION','ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping( value = "/checkbalance/{id}", method = RequestMethod.GET)
     public String getCheckBalance(@PathVariable("id") String drivingLicense, Model model) {
         int amount = getBalance(drivingLicense);
-        model.addAttribute("paymentDriver",new PaymentDriver(drivingLicense, amount));
+        Driver driver=driverService.getBydrivingLisence(drivingLicense).get();
+        System.out.println(driver.getFirstName()+" "+driver.getLastName());
+        model.addAttribute("paymentDriver",new PaymentDriver(drivingLicense,driver, amount));
         return "getbalance";
     }
     @RequestMapping(value = "/getbalance", method = RequestMethod.GET)
@@ -73,4 +79,5 @@ public class CheckAmountDueController {
         }
         return amount;
     }
+
 }

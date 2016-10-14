@@ -31,13 +31,15 @@ public class Users {
     private String district;
     @NotEmpty
     private String sector;
-    @NotEmpty
+    //@NotEmpty
     private String cell;
-    @NotEmpty
+   // @NotEmpty
     private String village;
     @NotEmpty
-    @Pattern(regexp = "^\\+?[250]{3}-([7]{1})-([0-9]{8}|[0-9]-[0-9][0-9]{2}-[0-9]{2}-[0-9]{2}|[0-9]{3}-[0-9]{2}-[0-9]-[0-9])$")
+   // @Pattern(regexp = "^\\+?[250]{3}-([7]{1})-([0-9]{8}|[0-9]-[0-9][0-9]{2}-[0-9]{2}-[0-9]{2}|[0-9]{3}-[0-9]{2}-[0-9]-[0-9])$")
     private String telphone;
+    @NotEmpty
+    private String post;
     @NotEmpty
     private String username;
     @NotEmpty
@@ -189,5 +191,13 @@ public class Users {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+@Column
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
     }
 }

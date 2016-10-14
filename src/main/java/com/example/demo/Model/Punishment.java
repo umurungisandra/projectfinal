@@ -18,9 +18,9 @@ public class Punishment {
     private PunishmentPolicy operation;
     @NotEmpty
     private String description;
-    @NotNull
+
     private Users savedBy;
-    @NotNull
+
     private Date savedDate;
     private boolean voided;
     @Id

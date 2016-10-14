@@ -47,6 +47,7 @@ public class DriverController {
     public Driver getDriver(@PathVariable ("id") Optional<String> drivingLicence) {
        driverService.getBydrivingLisence(drivingLicence.orElse(""));
 
+
         RestTemplate restTemplate = new RestTemplate();
         Driver driver = restTemplate.getForObject("http://localhost:9090/driver/id/"+drivingLicence.get(), Driver.class);
         return driver;

@@ -10,12 +10,23 @@ public class PaymentDriver {
     private String driver;
     private int amountDue;
 
-    public PaymentDriver(String driver, int amountDue) {
+    private Driver d;
+
+    public PaymentDriver(String driver,Driver d, int amountDue) {
         this.driver = driver;
         this.amountDue = amountDue;
+        this.d=d;
     }
 
     public PaymentDriver() {
+    }
+
+    public Driver getD() {
+        return d;
+    }
+
+    public void setD(Driver d) {
+        this.d = d;
     }
 
     public String getDriver() {

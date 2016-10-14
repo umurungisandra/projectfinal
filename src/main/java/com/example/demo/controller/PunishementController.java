@@ -38,7 +38,7 @@ public class PunishementController {
         binder.registerCustomEditor(       Date.class,
                 new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/punishement",method = RequestMethod.GET)
     public String getPunishementPage(Model model){
         model.addAttribute("punishement",new Punishment());
@@ -47,32 +47,33 @@ public class PunishementController {
     }
     @RequestMapping(value = "/punishement/save",method = RequestMethod.POST)
     public String savePunishement(@Valid @ModelAttribute("punishement") Punishment punishement,BindingResult bindingResult, Authentication authentication,  Model model,RedirectAttributes redirectAttrs) {
-        if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError().getField());
-            model.addAttribute("punishement", punishement);
-            model.addAttribute("operation", operationService.getAll());
-
-            return "/punishement";
-        } else {
+//        if (bindingResult.hasErrors()) {
+//            System.out.println(bindingResult.getFieldError().getField());
+//            model.addAttribute("punishement", punishement);
+//            model.addAttribute("operation", operationService.getAll());
+//
+//            return "/punishement";
+//        } else {
             CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
             Users users = userService.getByUsername(currentUser.getUsername()).get();
             punishement.setSavedBy(users);
             punishement.setSavedDate(new Date());
+
             punishementService.saveOrUpdate(punishement);
             model.addAttribute("punishement", new Punishment());
             redirectAttrs.addFlashAttribute("messages", "success");
             Integer idPunishement = punishement.getId();
 
             return "redirect:/punishement/offen/"+idPunishement;
-        }
+//        }
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/punishement/list",method = RequestMethod.GET)
     public String getListPage(Model model){
         model.addAttribute("punishement",punishementService.getAll());
         return "punishementlist";
     }
-    @PreAuthorize("hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','DIRECTEUR_EXHIBITS_AND_FINES')")
     @RequestMapping(value = "/punishement/edit/{id}", method = RequestMethod.GET)
     public String getEditPage(@PathVariable String id, Model model) {
         Integer idPunishment = Integer.parseInt(id);
