@@ -80,7 +80,7 @@ public class UsersController {
         }
 
      else {
-
+            System.out.println(bindingResult.getFieldError().getField());
         model.addAttribute("users", users);
             model.addAttribute("messages", "unsuccess");
         return "/users";
