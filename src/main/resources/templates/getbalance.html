@@ -61,15 +61,16 @@
                         <thead>
                         <tr>
                             <th>Driving Licence</th>
-                            <!--<th>First Name</th>-->
-                            <!--<th>Last Name</th>-->
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th> Due Amount</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td th:text="${paymentDriver.driver}"></td>
-                           <!-- <td th:text="${paymentDriver.firstname}"></td>-->
+                            <td th:text="${paymentDriver.d.firstName}"></td>
+                            <td th:text="${paymentDriver.d.lastName}"></td>
                             <td th:text="${paymentDriver.amountDue}"></td>
                         </tr>
                         </tbody>

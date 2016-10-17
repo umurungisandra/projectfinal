@@ -13,21 +13,25 @@ import java.util.Date;
 public class Payment {
     private Integer id;
     private Date date;
+    private  String firstName;
+    private String lastName;
     private int amountDue;
     private int amountPaid;
-    private String numberBankslip;
+    private String offence;
     private String drivingLicense;
 
     public Payment() {
     }
 
-    public Payment(Date date, int amountDue, int amountPaid, String numberBankslip, String drivingLicense) {
+    public Payment(Date date, int amountDue,String firstName,String lastName,String offence, int amountPaid, String drivingLicense) {
 
         this.date = date;
+        this.firstName=firstName;
+        this.lastName=lastName;
         this.amountDue = amountDue;
         this.amountPaid = amountPaid;
-        this.numberBankslip = numberBankslip;
         this.drivingLicense = drivingLicense;
+        this.offence=offence;
     }
 
     @Id
@@ -64,21 +68,35 @@ public class Payment {
         this.amountPaid = amountPaid;
     }
 
-
-    public String getNumberBankslip() {
-        return numberBankslip;
-    }
-
-    public void setNumberBankslip(String numberBankslip) {
-        this.numberBankslip = numberBankslip;
-    }
-
-
     public String getDrivingLicense() {
         return drivingLicense;
     }
 
     public void setDrivingLicense(String drivingLicense) {
         this.drivingLicense = drivingLicense;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getOffence() {
+        return offence;
+    }
+
+    public void setOffence(String offence) {
+        this.offence = offence;
     }
 }
