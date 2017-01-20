@@ -36,7 +36,7 @@ public class drivertelephoneController {
             model.addAttribute("drivertelephone", driverPoint);
             driverPointService.saveOrUpdate(driverPoint);
             model.addAttribute("messages", "unsuccess");
-            return "redirect:/drivertelephone";
+            return "redirect:/api/drivertelephone";
 
     }
 }

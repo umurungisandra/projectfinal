@@ -32,7 +32,7 @@ public class Offences {
     public void setId(Integer id) {
         this.id = id;
     }
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false,length = 100)
     public String getNameOffence() {
         return nameOffence;
     }

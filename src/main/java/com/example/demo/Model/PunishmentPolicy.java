@@ -35,7 +35,7 @@ public class PunishmentPolicy {
     public void setId(Integer id) {
         this.id = id;
     }
-@Column
+    @Column(name = "set_mark", unique = true, nullable = false,length = 100)
     public int getSetMark() {
         return setMark;
     }
@@ -43,7 +43,7 @@ public class PunishmentPolicy {
     public void setSetMark(int setMark) {
         this.setMark = setMark;
     }
-@Column
+    @Column(name = "set_penalties", unique = true, nullable = false,length = 100)
     public int getSetPenalties() {
         return setPenalties;
     }
@@ -52,15 +52,7 @@ public class PunishmentPolicy {
         this.setPenalties = setPenalties;
     }
 
-//@Column
-    //public String getPayment() {
-        //return payment;
-   // }
-
-   // public void setPayment(String payment) {
-       //this.payment = payment;
-    //}
-   @ManyToOne(cascade = CascadeType.ALL,targetEntity = Users.class)
+    @ManyToOne(cascade = CascadeType.ALL,targetEntity = Users.class)
     public Users getSavedBy() {
         return savedBy;
     }

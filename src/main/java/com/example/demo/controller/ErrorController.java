@@ -13,8 +13,5 @@ public class ErrorController {
     public String getHomePage(){
         return "home";
     }
-    //@RequestMapping(value = "/login", method = RequestMethod.GET)
-   // public String getLoginPage(){
-        //return "login";
-    //}
+
 }

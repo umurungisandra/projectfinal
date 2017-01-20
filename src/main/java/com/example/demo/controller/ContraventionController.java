@@ -67,6 +67,13 @@ public class ContraventionController {
             } else {
                 redirectAttrs.addFlashAttribute("messages", "retain");
             }
+            String sector = contravention.getSector();
+            try {
+                sector = sector.split(",")[0];
+            }catch (ArrayIndexOutOfBoundsException ex){
+                sector="";
+            }
+            contravention.setSector(sector);
             contraventionService.saveOrUpdate(contravention);
 
             model.addAttribute("contravention", new Contravention());
@@ -85,7 +92,11 @@ public class ContraventionController {
             contravention.setSavedBy(users);
             contravention.setSavedDate(new Date());
             String sector = contravention.getSector();
-            sector = sector.split(",")[0];
+            try {
+                sector = sector.split(",")[0];
+            }catch (ArrayIndexOutOfBoundsException ex){
+                sector="";
+            }
             contravention.setSector(sector);
             contraventionService.saveOrUpdate(contravention);
             model.addAttribute("contravention", new Contravention());

@@ -126,7 +126,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','DIRECTEUR_EXHIBITS_AND_FINES')">
+                            <div sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','DIRECTEUR_EXHIBITS_AND_FINES','ADMIN')">
                                 <div style="height:30px; line-height:30px; text-align:center;">
 
                                 </div>
@@ -163,10 +163,8 @@
                                             <option value="">--Select--</option>
                                         </select>
                                     </div>
-
-                                    <div sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
                                     <div style="clear:both; display:block;height:10px;"></div>
-                                    <div class="form-group">
+                                    <div class="form-group" style="visibility: visible">
                                         <label for="sector" class="col-sm-2 control-label">Sector</label>
 
                                         <div class="col-sm-6">
@@ -178,7 +176,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    </div>
+
                                     <div style="clear:both; display:block;height:10px;"></div>
                                     <div class="form-group" style="visibility:hidden">
                                         <label for="cellbox" class="col-sm-2 control-label">Cell</label>
@@ -194,89 +192,6 @@
                                     </div>
                                     <div style="clear:both; display:block;height:10px;"></div>
                                     <div class="form-group" style="visibility:hidden">
-                                        <label type="hidden" for="villagebox"
-                                               class="col-sm-2 control-label">Village</label>
-                                        <div class="form-group" style="visibility:hidden">
-                                            <input type="hidden" class="form-control" id="villagebox" name="village"
-                                                   placeholder="Village" value="" th:field="*{village}"/>
-
-                                            <select name="village" id="ad_village" class="adh filter form-control">
-                                                <option value="">--Select--</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <div sec:authorize="hasAnyAuthority('ADMIN')">
-                                <div style="height:30px; line-height:30px; text-align:center;">
-
-                                </div>
-                                <label class="col-xs-2 control-label">Work of Place</label>
-                                <div style="clear:both; display:block;height:10px;"></div>
-                                <div class="form-group">
-
-                                    <label for="province" class="col-sm-2 control-label">Province</label>
-                                    <div class="col-sm-6">
-                                        <input type="hidden" class="form-control" id="province" name="province"
-                                               placeholder="Province" value="" th:field="*{province}"/>
-
-                                        <select class="form-control required adh filter" id="ad_province"
-                                                name="ad_province">
-                                            <option value="" selected="selected">--Select--</option>
-                                            <option value="Kigali">Kigali City</option>
-                                            <option value="Eastern Province">Eastern Province</option>
-                                            <option value="Western Province">Western Province</option>
-                                            <option value="Northern Province">Northern Province</option>
-                                            <option value="Southern Province">Southern Province</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div style="clear:both; display:block;height:10px;"></div>
-                                <div class="form-group">
-                                    <label for="district" class="col-sm-2 control-label">District</label>
-
-                                    <div class="col-sm-6">
-                                        <input type="hidden" class="form-control" id="district" name="district"
-                                               placeholder="District" value="" th:field="*{district}"/>
-
-                                        <select name="dist" id="ad_district" class="adh filter form-control">
-                                            <option value="">--Select--</option>
-                                        </select>
-                                    </div>
-
-                                    <div sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
-                                        <div style="clear:both; display:block;height:10px;"></div>
-                                        <div class="form-group">
-                                            <label for="sector" class="col-sm-2 control-label">Sector</label>
-
-                                            <div class="col-sm-6">
-                                                <input type="hidden" class="form-control" id="sector" name="sector"
-                                                       placeholder="Sector" value="" th:field="*{sector}"/>
-
-                                                <select name="sector" id="ad_sector" class="adh filter form-control">
-                                                    <option value="">--Select--</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="clear:both; display:block;height:10px;"></div>
-                                    <div class="form-group" style="visibility:visible">
-                                        <label for="cellbox" class="col-sm-2 control-label">Cell</label>
-
-                                        <div class="col-sm-6">
-                                            <input type="hidden" class="form-control" id="cellbox" name="cell"
-                                                   placeholder="Cell" value="" th:field="*{cell}"/>
-
-                                            <select name="cell" id="ad_cell" class="adh filter form-control">
-                                                <option value="">--Select--</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div style="clear:both; display:block;height:10px;"></div>
-                                    <div class="form-group" style="visibility:visible">
                                         <label type="hidden" for="villagebox"
                                                class="col-sm-2 control-label">Village</label>
                                         <div class="form-group" style="visibility:hidden">

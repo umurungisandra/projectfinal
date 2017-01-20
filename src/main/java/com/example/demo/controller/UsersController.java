@@ -56,9 +56,13 @@ public class UsersController {
                 Users user = userService.getByUsername(currentUser.getUsername()).get();
                 users.setSavedBy(user);
                 users.setSavedDate(new Date());
-                String sector = users.getSector();
-                sector = sector.split(",")[0];
-                users.setSector(sector);
+               // String sector = users.getSector();
+               // try {
+                    //sector = sector.split(",")[0];
+               // }catch (ArrayIndexOutOfBoundsException ex){
+                   // sector="";
+               // }
+               // users.setSector(sector);
                // String cell = users.getCell();
                 //cell = cell.split(",")[0];
                 //users.setCell(cell);

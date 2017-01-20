@@ -51,7 +51,9 @@
                             </div>
                         </div>
                         <form th:object="${user}" th:action="@{/users/save}" action="#" method="post">
-                            <div style="display: none"></div>
+                            <div style="display: none">
+                                <input type="text" th:field="*{id}" class="form-control" th:href="id"/>
+                            </div>
                             <div class="form-group">
                                 <label class="col-xs-2 control-label" for="firstName">First Name</label>
                                 <div class="col-xs-6">
@@ -163,22 +165,20 @@
                                             <option value="">--Select--</option>
                                         </select>
                                     </div>
+                                    <div style="clear:both; display:block;height:10px;"></div>
+                                    <div class="form-group" style="visibility: visible">
+                                        <label for="sector" class="col-sm-2 control-label">Sector</label>
 
-                                    <div sec:authorize="hasAnyAuthority('CHIEF_OF_DISTRICT','ADMIN')">
-                                        <div style="clear:both; display:block;height:10px;"></div>
-                                        <div class="form-group">
-                                            <label for="sector" class="col-sm-2 control-label">Sector</label>
+                                        <div class="col-sm-6">
+                                            <input type="hidden" class="form-control" id="sector" name="sector"
+                                                   placeholder="Sector" value="" th:field="*{sector}"/>
 
-                                            <div class="col-sm-6">
-                                                <input type="hidden" class="form-control" id="sector" name="sector"
-                                                       placeholder="Sector" value="" th:field="*{sector}"/>
-
-                                                <select name="sector" id="ad_sector" class="adh filter form-control">
-                                                    <option value="">--Select--</option>
-                                                </select>
-                                            </div>
+                                            <select name="sector" id="ad_sector" class="adh filter form-control">
+                                                <option value="">--Select--</option>
+                                            </select>
                                         </div>
                                     </div>
+
                                     <div style="clear:both; display:block;height:10px;"></div>
                                     <div class="form-group" style="visibility:hidden">
                                         <label for="cellbox" class="col-sm-2 control-label">Cell</label>

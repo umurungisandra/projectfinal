@@ -25,20 +25,20 @@ public class Users {
     private String lastName;
     @NotEmpty
     private  String numberMatricule;
-    @NotEmpty
+
     private String province ;
-    @NotEmpty
+
     private String district;
-    @NotEmpty
+
     private String sector;
-    //@NotEmpty
+
     private String cell;
-   // @NotEmpty
+
     private String village;
     @NotEmpty
    // @Pattern(regexp = "^\\+?[250]{3}-([7]{1})-([0-9]{8}|[0-9]-[0-9][0-9]{2}-[0-9]{2}-[0-9]{2}|[0-9]{3}-[0-9]{2}-[0-9]-[0-9])$")
     private String telphone;
-    @NotEmpty
+
     private String post;
     @NotEmpty
     private String username;
@@ -48,7 +48,7 @@ public class Users {
     private Roles role;
     private Users savedBy;
     private Date savedDate;
-    private boolean enabled;
+    private boolean enabled=true;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -54,7 +54,7 @@
                             <th>Telephone</th>
                             <th>Username</th>
                             <th>SavedBy</th>
-                            <th>Saved Date</th>
+
 
                             <th>Edit</th>
                             </thead>
@@ -71,7 +71,7 @@
                                 <td th:text="${usr.telphone}">Saved Date</td>
                                 <td th:text="${usr.username}">username</td>
                                 <td th:text="${usr.savedBy.username}">SavedBy</td>
-                                <td th:text="${usr.savedDate}">Saved Date</td>
+
 
                                 <td><a th:href="@{/users/edit/{id}(id=${usr.id})}">Edit</a></td>
                             </tr>

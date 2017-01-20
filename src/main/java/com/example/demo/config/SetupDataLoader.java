@@ -27,8 +27,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     private boolean alreadySetup = false;
     @Autowired
     private UserService userService;
-
-
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -42,8 +40,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         final Users user = new Users();
         user.setUsername("admin");
         String pass = "demo";
-        BCryptPasswordEncoder b = new BCryptPasswordEncoder();
-        user.setPassword(b.encode(pass));
+        user.setPassword(pass);
         user.setSavedDate(new Date());
         user.setFirstName("firstaName");
         user.setLastName("lastName");

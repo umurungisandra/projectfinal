@@ -48,16 +48,16 @@ $(document).ready(function () {
             else{
                 $("#sector").val(val);}
         }
-        else if (elmId == "ad_cell") {
-         val = $("#ad_cell :selected").text();
-         //alert(val);
-         $("#cellbox").val(val);
-         }
-         else if (elmId == "ad_village") {
-         val = $("#ad_village :selected").text();
-         //alert(val);
-         $("#villagebox").val(val);
-         }
+        //else if (elmId == "ad_cell") {
+        // val = $("#ad_cell :selected").text();
+        // //alert(val);
+        // $("#cellbox").val(val);
+        // }
+        // else if (elmId == "ad_village") {
+        // val = $("#ad_village :selected").text();
+        // //alert(val);
+        // $("#villagebox").val(val);
+        // }
 
     });
 
@@ -123,8 +123,8 @@ function processData(allText, id, level) {
 
             selectToChange = "ad_district";
             document.getElementById("ad_sector").innerHTML = voidValues;
-            document.getElementById("ad_cell").innerHTML = voidValues;
-             document.getElementById("ad_village").innerHTML = voidValues;
+            //document.getElementById("ad_cell").innerHTML = voidValues;
+            // document.getElementById("ad_village").innerHTML = voidValues;
 
         }
         if (level == "ad_district") {
@@ -136,8 +136,8 @@ function processData(allText, id, level) {
 
 
             selectToChange = "ad_sector";
-            document.getElementById("ad_cell").innerHTML = voidValues;
-             document.getElementById("ad_village").innerHTML = voidValues;
+            //document.getElementById("ad_cell").innerHTML = voidValues;
+            // document.getElementById("ad_village").innerHTML = voidValues;
         }
         if (level == "ad_sector") {
             if (data[1] == id) {
@@ -148,7 +148,7 @@ function processData(allText, id, level) {
 
 
             selectToChange = "ad_cell";
-            document.getElementById("ad_village").innerHTML = voidValues;
+            //document.getElementById("ad_village").innerHTML = voidValues;
         }
         if (level == "ad_cell") {
             if (data[1] == id) {
